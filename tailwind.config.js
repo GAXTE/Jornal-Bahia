@@ -10,6 +10,12 @@ export default {
           lg: "1120px",
         },
       },
+      spacing: {
+        "19px": "19px",
+      },
+    },
+    colors: {
+      primaryRed: "#FF0000",
     },
   },
   plugins: [],
