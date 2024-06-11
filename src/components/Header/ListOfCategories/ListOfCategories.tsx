@@ -1,11 +1,19 @@
-export const ListOfCategories = () => {
+import React from "react";
+
+interface IListOfCategories {
+  style?: React.CSSProperties;
+}
+
+export const ListOfCategories = ({ style }: IListOfCategories) => {
   return (
     <>
-      <ul className="container">
-        <li>Category 1</li>
-        <li>Category 2</li>
-        <li>Category 3</li>
-      </ul>
+      <div style={style}>
+        <ul className="container hidden lg:flex">
+          <li>Category 1</li>
+          <li>Category 2</li>
+          <li>Category 3</li>
+        </ul>
+      </div>
     </>
   );
 };
