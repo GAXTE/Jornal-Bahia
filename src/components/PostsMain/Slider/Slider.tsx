@@ -2,28 +2,39 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useCategoryContext } from "../../../Providers/category/CategoryContext";
 
-const Slider = () => {
+export const Slider = () => {
   const [current, setCurrent] = useState(0);
   const { PostsMain } = useCategoryContext();
+  const images = PostsMain.slice(-4).map((post) => post.photoUrls[0]);
+  const titles = PostsMain.slice(-4).map((post) => post.title);
+  const nextSlide = () => {
+    let nextIndex = current + 1;
+    if (nextIndex >= images.length) {
+      nextIndex = 0;
+    }
+    setCurrent(nextIndex);
+  };
 
-  const posts = PostsMain.slice(-4);
-  const images = posts.map((post) => post.photoUrls[0]);
-  const titles = posts.map((post) => post.title);
-
-  const nextSlide = () => setCurrent((prev) => (prev + 1) % images.length);
-  const prevSlide = () => setCurrent((prev) => (prev - 1 + images.length) % images.length);
+  const prevSlide = () => {
+    let prevIndex = current - 1;
+    if (prevIndex <= 0) {
+      prevIndex = images.length - 1;
+    }
+    setCurrent(prevIndex);
+  };
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 8000);
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
     return () => clearInterval(interval);
-  }, []);
-
+  }, [current]);
   return (
     <div className="relative max-w-[600px] min-w-[320px]">
       <motion.div
         key={current}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 2 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 2 }}
         className="max-w-[600px] min-w-[320px] w-full"
@@ -36,7 +47,7 @@ const Slider = () => {
         <button className="absolute top-[32px] left-[45px] bg-red-500 rounded-[4px] w-[97px] h-[33px] lg:w-[120px] lg:h-[39]">
           Principais
         </button>
-        <div className="absolute top-2/3 min-h-[108px] max-w-[540px] ml-[45px] mr-[52px]">
+        <div className="absolute top-2/3 min-w-[px] min-h-[108px] max-w-[540px] ml-[45px] mr-[52px]">
           <p className="text-wrap text-[#ffffff] font-extrabold lg:text-[30px] text-[22px] line-clamp-4">
             {titles[current]}
           </p>
@@ -83,5 +94,3 @@ const Slider = () => {
     </div>
   );
 };
-
-export default Slider;

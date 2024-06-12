@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCategoryContext } from "../../Providers/category/CategoryContext";
-import Slider from "./Slider/Slider";
+import { Slider } from "./Slider/Slider";
 import { IPost } from "../../types/PostTypes";
 
 export const PostsMain = () => {
