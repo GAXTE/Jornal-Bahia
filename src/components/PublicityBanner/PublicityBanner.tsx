@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import { usePublicityContext } from "../../Providers/publicity/PublicityContext";
 
 export const PublicityBanner = () => {
-  const { publicityBanners, getAllPublicty } = usePublicityContext();
+  const { publicityBanners, getAllPublicity: getAllPublicty } =
+    usePublicityContext();
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
       await getAllPublicty();
-      setCurrentBannerIndex((prevIndex) => (prevIndex + 1) % publicityBanners.length);
+      setCurrentBannerIndex(
+        (prevIndex) => (prevIndex + 1) % publicityBanners.length
+      );
     }, 10000);
 
     return () => clearInterval(intervalId);
@@ -19,7 +22,7 @@ export const PublicityBanner = () => {
   }
 
   return (
-    <section className="container flex justify-center items-center">
+    <section className="container flex justify-center items-center mt-[16px] lg:mt-[37px]">
       <div>
         <img
           src={publicityBanners[currentBannerIndex].imageUrl}

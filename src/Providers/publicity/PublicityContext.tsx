@@ -16,24 +16,24 @@ interface Publicity {
 }
 
 interface IPublicityContext {
-  getAllPublicty: () => void;
+  getAllPublicity: () => void;
   publicityBanners: Publicity[];
   publicityOthers: Publicity[];
 }
 
 export const PublicityContext = React.createContext<IPublicityContext>({
-  getAllPublicty: async () => {},
+  getAllPublicity: async () => {},
   publicityBanners: [],
   publicityOthers: [],
 });
 
 export const cache = new Cache();
 
-export const PublictyProvider: React.FC<Props> = ({ children }) => {
+export const PublicityProvider: React.FC<Props> = ({ children }) => {
   const [publicityBanners, setPublicityBanners] = useState<Publicity[]>([]);
   const [publicityOthers, setPublicityOthers] = useState<Publicity[]>([]);
 
-  const getAllPublicty = async () => {
+  const getAllPublicity = async () => {
     const cachedBanners = cache.get("publicityBanners");
     const cachedOthers = cache.get("publicityOthers");
 
@@ -57,11 +57,17 @@ export const PublictyProvider: React.FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    getAllPublicty();
+    getAllPublicity();
   }, []);
 
   return (
-    <PublicityContext.Provider value={{ getAllPublicty, publicityBanners, publicityOthers }}>
+    <PublicityContext.Provider
+      value={{
+        getAllPublicity: getAllPublicity,
+        publicityBanners,
+        publicityOthers,
+      }}
+    >
       {children}
     </PublicityContext.Provider>
   );
