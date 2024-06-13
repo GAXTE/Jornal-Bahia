@@ -44,7 +44,7 @@ export const Slider = () => {
           alt="slide"
           className="w-[637px] h-[499px] object-cover min-h-[463px] rounded-md"
         />
-        <button className="absolute top-[32px] left-[45px] bg-red-500 rounded-[4px] w-[97px] h-[33px] lg:w-[120px] lg:h-[39]">
+        <button className="absolute top-[32px] left-[45px] bg-primaryRed rounded-[4px] w-[97px] h-[33px] lg:w-[120px] lg:h-[39]">
           Principais
         </button>
         <div className="absolute top-2/3 min-w-[px] min-h-[108px] max-w-[540px] ml-[45px] mr-[52px]">

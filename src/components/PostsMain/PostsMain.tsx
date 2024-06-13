@@ -27,7 +27,7 @@ export const PostsMain = () => {
   }, []);
   return (
     <>
-      <section className="my-3 container mx-auto flex flex-wrap gap-[30px]">
+      <section className="mt-[16px] container mx-auto flex flex-wrap gap-[30px] lg:mt-[37px]">
         <div className="max-w-[600px] min-w-[320px]">
           <Slider />
         </div>
@@ -48,7 +48,9 @@ export const PostsMain = () => {
                 <p className="overflow-auto whitespace-normal mb-1">
                   <strong>{post.title}</strong>
                 </p>
-                <span className="text-sm opacity-50 text-black mt-2">há 2 horas</span>
+                <span className="text-sm opacity-50 text-black mt-2">
+                  há 2 horas
+                </span>
               </div>
             </div>
           ))}
