@@ -1,7 +1,11 @@
-import "./App.css";
+import { RouterMain } from "./Routes/Routes";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <RouterMain />
+    </>
+  );
 }
 
 export default App;
