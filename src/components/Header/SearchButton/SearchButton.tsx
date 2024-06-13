@@ -26,7 +26,7 @@ export const SearchButton = () => {
           transition={{ duration: 0.3, ease: "easeOut" }}
           style={{
             position: "absolute",
-            top: "25px",
+            top: "28px",
             left: 22,
             width: "200px",
             borderRadius: "5px",
