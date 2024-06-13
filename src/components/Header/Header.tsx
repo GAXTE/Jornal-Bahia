@@ -6,9 +6,7 @@ import Logo from "../../assets/Logo-DOE9XU4E 1.png";
 import { HamburgerMenu } from "./HamburgerMenu/HamburgerMenu";
 import { RedLine } from "../RedLine/RedLine";
 
-interface IHeader extends IChildren {
-  // classname?: string;
-}
+interface IHeader extends IChildren {}
 
 export const Header = ({ children }: IHeader) => {
   return (

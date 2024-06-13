@@ -3,6 +3,7 @@ import burgerMenu from "../../../assets/burgerMenu.png";
 import { ListOfCategories } from "../ListOfCategories/ListOfCategories";
 import { SocialMedia } from "../SocialMedia/SocialMedia";
 import close from "../../../assets/close.svg";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const HamburgerMenu = () => {
   const modalContentRef = useRef<HTMLDivElement>(null);
@@ -39,27 +40,33 @@ export const HamburgerMenu = () => {
       <div onClick={toggleModal} className="lg:hidden cursor-pointer">
         <img src={burgerMenu} alt="" />
       </div>
-      {isModalOpen && (
-        <div
-          onClick={closeModalIfClickedOutside}
-          className="fixed inset-0 bg-opacity-50 z-50 flex justify-center pt-[130px] lg:hidden"
-        >
+      <AnimatePresence>
+        {isModalOpen && (
           <div
-            ref={modalContentRef}
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white  w-full flex flex-col  items-center overflow-y-auto  "
+            onClick={closeModalIfClickedOutside}
+            className="fixed inset-0 bg-opacity-50 z-50 flex justify-center pt-[130px] lg:hidden"
           >
-            <button
-              className="self-end sticky top-2 mt-2 mr-7"
-              onClick={toggleModal}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              exit={{ opacity: 0, x: 50 }}
+              ref={modalContentRef}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white  w-full flex flex-col  items-center overflow-y-auto  "
             >
-              <img src={close} alt="close button" />
-            </button>
-            <ListOfCategories style={modalListStyle} />
-            <SocialMedia style={modalSocialMediaStyle} />
+              <button
+                className="self-end sticky top-2 mt-2 mr-7"
+                onClick={toggleModal}
+              >
+                <img src={close} alt="close button" />
+              </button>
+              <ListOfCategories style={modalListStyle} />
+              <SocialMedia style={modalSocialMediaStyle} />
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </>
   );
 };
