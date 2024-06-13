@@ -13,17 +13,19 @@ interface IHeader extends IChildren {
 export const Header = ({ children }: IHeader) => {
   return (
     <>
-      <header className="my-0 mx-auto flex-col ">
-        <div className="container flex justify-between items-center my-[19px] ">
+      <header className="bg-white flex flex-col ">
+        <div className="min-h-[83px] container flex justify-between items-center my-[19px] ">
           <SearchButton />
-          <img className="" src={Logo} alt="Logo Jornal da Bahia" />
+          <img
+            className="w-[48vw] max-w-[231px] h-auto max-h-[47px]"
+            src={Logo}
+            alt="Logo Jornal da Bahia"
+          />
           <SocialMedia />
           <HamburgerMenu />
         </div>
         <RedLine />
-        <div className="container">
-          <ListOfCategories />
-        </div>
+        <ListOfCategories />
         {children}
       </header>
     </>
