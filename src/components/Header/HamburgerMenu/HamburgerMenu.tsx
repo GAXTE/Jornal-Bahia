@@ -44,7 +44,7 @@ export const HamburgerMenu = () => {
         {isModalOpen && (
           <div
             onClick={closeModalIfClickedOutside}
-            className="fixed inset-0 bg-opacity-50 z-50 flex justify-center pt-[130px] lg:hidden"
+            className="fixed inset-0 bg-opacity-50 z-50 flex justify-center pt-[128px] lg:hidden"
           >
             <motion.div
               initial={{ opacity: 0, x: 50 }}
