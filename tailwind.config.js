@@ -11,9 +11,6 @@ export default {
           lg: "1120px",
         },
       },
-      fontFamily: {
-        primaryFont: ["Montserrat", "sans-serif"],
-      },
     },
   },
   plugins: [
