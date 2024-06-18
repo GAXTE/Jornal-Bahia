@@ -65,6 +65,15 @@ export default {
           fontWeight: "800",
           lineHeight: "17.07px",
         },
+        ".label-category": {
+          fontFamily: "var(--font-primary)",
+          fontSize: "14px",
+          color: "var(--color-white)",
+          fontWeight: "800",
+          lineHeight: "17.07px",
+          padding: "7px 13px",
+          borderRadius: "4px",
+        },
         ".opaque-text": {
           fontFamily: "var(--font-primary)",
           opacity: "0.5",
