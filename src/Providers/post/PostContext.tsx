@@ -8,16 +8,41 @@ interface Props {
 
 interface IPostContext {
   getMostRead: () => void;
+  getAllPosts: () => void;
   postMostState?: IPost[];
+  AllPosts?: IPost[];
 }
 
 export const PostContext = React.createContext<IPostContext>({
+  getAllPosts: () => {},
   getMostRead: () => {},
   postMostState: [],
+  AllPosts: [],
 });
 
 export const PostProvider: React.FC<Props> = ({ children }) => {
+  const [AllPosts, setGetAllPosts] = useState<IPost[]>();
   const [postMostState, setPostMostState] = useState<IPost[]>();
+
+  const getAllPosts = async () => {
+    const cachedPosts = sessionStorage.getItem("allPosts");
+    const lastFetchTime = sessionStorage.getItem("allPostsFetchTime");
+
+    const tenMinutes = 10 * 60 * 1000;
+    const now = new Date().getTime();
+
+    if (cachedPosts && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
+      setGetAllPosts(JSON.parse(cachedPosts));
+      return;
+    }
+
+    try {
+      const { data } = await Api.get("/post");
+      sessionStorage.setItem("allPosts", JSON.stringify(data));
+      sessionStorage.setItem("allPostsFetchTime", now.toString());
+      setGetAllPosts(data);
+    } catch (error) {}
+  };
 
   const getMostRead = async () => {
     const postsMostReads = sessionStorage.getItem("postsMostReads");
@@ -41,13 +66,19 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     getMostRead();
+    getAllPosts();
     const timeoutId = setTimeout(() => {
       sessionStorage.removeItem("postsMostReads");
+      sessionStorage.removeItem("allPosts");
     }, 120 * 60 * 1000);
     return () => clearTimeout(timeoutId);
   }, []);
 
-  return <PostContext.Provider value={{ postMostState, getMostRead }}>{children}</PostContext.Provider>;
+  return (
+    <PostContext.Provider value={{ postMostState, getMostRead, getAllPosts, AllPosts }}>
+      {children}
+    </PostContext.Provider>
+  );
 };
 
 export const usePostContext = () => useContext(PostContext);
