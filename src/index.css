@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-primary: #ff0000;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-white-2: #fbfbfb;
+  --color-gray: #f3f3f3;
+
+  --font-primary: "Montserrat", sans-serif;
+}
+
 body {
-  background-color: #f3f3f3;
+  background-color: var(--color-gray);
 }

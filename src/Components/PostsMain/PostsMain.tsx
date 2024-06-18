@@ -27,7 +27,7 @@ export const PostsMain = () => {
   }, []);
   return (
     <>
-      <section className="mt-[16px] container mx-auto flex flex-wrap gap-[30px] lg:mt-[37px]">
+      <section className="mt-[16px] mx-auto flex flex-wrap gap-[30px] lg:mt-[37px]">
         <div className="max-w-[600px] min-w-[320px]">
           <Slider />
         </div>
