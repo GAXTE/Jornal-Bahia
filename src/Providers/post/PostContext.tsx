@@ -19,21 +19,34 @@ export const PostContext = React.createContext<IPostContext>({
 export const PostProvider: React.FC<Props> = ({ children }) => {
   const [postMostState, setPostMostState] = useState<IPost[]>();
 
-  const postsMostReads = sessionStorage.getItem("postsMostReads");
   const getMostRead = async () => {
-    if (postsMostReads) {
+    const postsMostReads = sessionStorage.getItem("postsMostReads");
+    const lastFetchTime = sessionStorage.getItem("lastFetchTime");
+
+    const tenMinutes = 10 * 60 * 1000;
+    const now = new Date().getTime();
+
+    if (postsMostReads && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
       setPostMostState(JSON.parse(postsMostReads));
       return;
     }
+
     try {
       const { data } = await Api.get("/filter/post/views");
       sessionStorage.setItem("postsMostReads", JSON.stringify(data));
+      sessionStorage.setItem("lastFetchTime", now.toString());
       setPostMostState(data);
     } catch (error) {}
   };
+
   useEffect(() => {
     getMostRead();
+    const timeoutId = setTimeout(() => {
+      sessionStorage.removeItem("postsMostReads");
+    }, 120 * 60 * 1000);
+    return () => clearTimeout(timeoutId);
   }, []);
+
   return <PostContext.Provider value={{ postMostState, getMostRead }}>{children}</PostContext.Provider>;
 };
 
