@@ -44,9 +44,12 @@ export const Slider = () => {
           alt="slide"
           className="w-[637px] h-[499px] object-cover min-h-[463px] rounded-md"
         />
-        <button className="absolute top-[32px] left-[45px] bg-primaryRed rounded-[4px] w-[97px] h-[33px] lg:w-[120px] lg:h-[39]">
+        <span
+          className="absolute top-[32px] left-[45px] label-category"
+          style={{ background: "var(--color-primary)" }}
+        >
           Principais
-        </button>
+        </span>
         <div className="absolute top-2/3 min-w-[px] min-h-[108px] max-w-[540px] ml-[45px] mr-[52px]">
           <p className="text-wrap text-[#ffffff] font-extrabold lg:text-[30px] text-[22px] line-clamp-4">
             {titles[current]}
