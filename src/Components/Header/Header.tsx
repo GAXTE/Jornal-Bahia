@@ -15,7 +15,7 @@ export const Header = ({ children }: IHeader) => {
         <div className="min-h-[83px] container flex justify-between items-center my-[19px] ">
           <SearchButton />
           <img
-            className="w-[48vw] max-w-[231px] h-auto max-h-[47px]"
+            className="w-[48vw] max-w-[231px] h-auto max-h-[47px] cursor-pointer"
             src={Logo}
             alt="Logo Jornal da Bahia"
           />
