@@ -5,10 +5,12 @@ import { SocialMedia } from "./SocialMedia/SocialMedia";
 import Logo from "../../assets/Logo-DOE9XU4E 1.png";
 import { HamburgerMenu } from "./HamburgerMenu/HamburgerMenu";
 import { RedLine } from "../RedLine/RedLine";
+import { useNavigate } from "react-router-dom";
 
 interface IHeader extends IChildren {}
 
 export const Header = ({ children }: IHeader) => {
+  const navi = useNavigate();
   return (
     <>
       <header className="bg-white flex flex-col ">
@@ -18,6 +20,7 @@ export const Header = ({ children }: IHeader) => {
             className="w-[48vw] max-w-[231px] h-auto max-h-[47px] cursor-pointer"
             src={Logo}
             alt="Logo Jornal da Bahia"
+            onClick={() => navi("/")}
           />
           <SocialMedia />
           <HamburgerMenu />
