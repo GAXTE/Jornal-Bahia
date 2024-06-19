@@ -9,6 +9,11 @@ interface Props {
 interface IPostContext {
   getMostRead: () => void;
   getAllPosts: () => void;
+  pagination: (
+    obj: IPost[] | undefined | null,
+    pageSize: number,
+    pageNumber: number
+  ) => IPost[];
   postMostState?: IPost[];
   AllPosts?: IPost[];
 }
@@ -16,6 +21,7 @@ interface IPostContext {
 export const PostContext = React.createContext<IPostContext>({
   getAllPosts: () => {},
   getMostRead: () => {},
+  pagination: () => [],
   postMostState: [],
   AllPosts: [],
 });
@@ -31,15 +37,21 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     const tenMinutes = 10 * 60 * 1000;
     const now = new Date().getTime();
 
-    if (cachedPosts && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
+    if (
+      cachedPosts &&
+      lastFetchTime &&
+      now - parseInt(lastFetchTime) < tenMinutes
+    ) {
       setGetAllPosts(JSON.parse(cachedPosts));
       return;
     }
 
     try {
       const { data } = await Api.get("/post");
+      data.reverse();
       sessionStorage.setItem("allPosts", JSON.stringify(data));
       sessionStorage.setItem("allPostsFetchTime", now.toString());
+
       setGetAllPosts(data);
     } catch (error) {}
   };
@@ -51,7 +63,11 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     const tenMinutes = 10 * 60 * 1000;
     const now = new Date().getTime();
 
-    if (postsMostReads && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
+    if (
+      postsMostReads &&
+      lastFetchTime &&
+      now - parseInt(lastFetchTime) < tenMinutes
+    ) {
       setPostMostState(JSON.parse(postsMostReads));
       return;
     }
@@ -62,6 +78,18 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
       sessionStorage.setItem("lastFetchTime", now.toString());
       setPostMostState(data);
     } catch (error) {}
+  };
+
+  const pagination = (
+    obj: IPost[] | undefined | null,
+    pageSize: number,
+    pageNumber: number
+  ): IPost[] => {
+    --pageNumber;
+    --pageNumber;
+    if (!obj) return [];
+
+    return obj.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
   };
 
   useEffect(() => {
@@ -75,7 +103,9 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <PostContext.Provider value={{ postMostState, getMostRead, getAllPosts, AllPosts }}>
+    <PostContext.Provider
+      value={{ postMostState, getMostRead, getAllPosts, AllPosts, pagination }}
+    >
       {children}
     </PostContext.Provider>
   );
