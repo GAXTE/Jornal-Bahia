@@ -28,7 +28,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     const cachedPosts = sessionStorage.getItem("allPosts");
     const lastFetchTime = sessionStorage.getItem("allPostsFetchTime");
 
-    const tenMinutes = 10 * 60 * 1000;
+    const tenMinutes = 5 * 60 * 1000;
     const now = new Date().getTime();
 
     if (cachedPosts && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
