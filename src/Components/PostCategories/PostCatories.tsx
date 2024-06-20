@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePostContext } from "../../Providers/post/PostContext";
 import { IPost } from "../../types/PostTypes";
 
