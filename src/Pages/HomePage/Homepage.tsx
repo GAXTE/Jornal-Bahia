@@ -1,4 +1,5 @@
 import { Header } from "../../Components/Header/Header";
+import { LatestNews } from "../../Components/LatestNews/LatesteNews";
 import { MostRead } from "../../Components/MostRead/MostRead";
 import { PostCategories } from "../../Components/PostCategories/PostCatories";
 import { PostsMain } from "../../Components/PostsMain/PostsMain";
@@ -14,6 +15,9 @@ export const Homepage = () => {
         <section className="flex mt-[57px] ">
           <MostRead />
           <PostCategories />
+        </section>
+        <section>
+          <LatestNews />
         </section>
       </main>
     </>
