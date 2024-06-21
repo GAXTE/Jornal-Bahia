@@ -6,8 +6,10 @@ import { PostCategories } from "../../Components/PostCategories/PostCatories";
 import { PostsMain } from "../../Components/PostsMain/PostsMain";
 import { Publicities } from "../../Components/Publicities/publicities";
 import { PublicityBanner } from "../../Components/PublicityBanner/PublicityBanner";
+import { usePostContext } from "../../Providers/post/PostContext";
 
 export const Homepage = () => {
+  const { AllPosts } = usePostContext();
   return (
     <>
       <Header />
@@ -19,7 +21,7 @@ export const Homepage = () => {
           <PostCategories />
         </section>
         <section className="flex flex-col-reverse lg:flex-row lg:justify-between lg:relative">
-          <LatestNews />
+          <LatestNews posts={AllPosts!} />
           <Publicities />
         </section>
       </main>

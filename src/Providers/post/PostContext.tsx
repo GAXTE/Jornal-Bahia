@@ -85,12 +85,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     --pageNumber;
     --pageNumber;
     if (!obj) return [];
-    const result = obj.slice(
-      pageNumber * pageSize,
-      (pageNumber + 1) * pageSize
-    );
-
-    return result;
+    return obj.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
   };
 
   useEffect(() => {

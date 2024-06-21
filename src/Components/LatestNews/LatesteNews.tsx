@@ -4,17 +4,20 @@ import { PublicityBanner } from "../PublicityBanner/PublicityBanner";
 import { InfiniteScroll } from "../InfiniteScroll/InfiniteScroll";
 import { IPost } from "../../types/PostTypes";
 
-export const LatestNews = () => {
-  const { AllPosts, pagination } = usePostContext();
-  const [page, setPage] = useState(0);
+interface IProps {
+  posts: IPost[];
+}
+
+export const LatestNews = ({ posts }: IProps) => {
+  const { pagination } = usePostContext();
+  const [page, setPage] = useState(1);
   const [paginatedView, setPaginatedView] = useState<IPost[]>([]);
   const idCount: Record<string, number> = {};
-  
   useEffect(() => {
-    const paginated = pagination(AllPosts, 3, page);
-    setPaginatedView([...paginatedView, ...paginated]);
-  }, [page, AllPosts]);
+    const paginated = pagination(posts, 3, page);
 
+    setPaginatedView([...paginatedView, ...paginated]);
+  }, [page, posts]);
   return (
     <>
       <div className="flex flex-col">
