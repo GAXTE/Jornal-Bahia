@@ -1,3 +1,4 @@
+import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { LatestNews } from "../../Components/LatestNews/LatesteNews";
 import { MostRead } from "../../Components/MostRead/MostRead";
@@ -22,6 +23,7 @@ export const Homepage = () => {
           <Publicities />
         </section>
       </main>
+      <Footer />
     </>
   );
 };
