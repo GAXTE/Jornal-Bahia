@@ -30,6 +30,13 @@ export default {
           fontWeight: "800",
           lineHeight: "26.82px",
         },
+        ".tittle-list-post": {
+          fontFamily: "var(--font-primary)",
+          fontSize: "24px",
+          color: "var(--color-black)",
+          fontWeight: "800",
+          lineHeight: "26.82px",
+        },
         ".tittle-2": {
           fontFamily: "var(--font-primary)",
           fontSize: "20px",
