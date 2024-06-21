@@ -44,7 +44,7 @@ export default {
           fontSize: "24px",
           color: "var(--color-black)",
           fontWeight: "800",
-          lineHeight: "26.82px",
+          lineHeight: "29.26px",
         },
         ".tittle-2": {
           fontFamily: "var(--font-primary)",
