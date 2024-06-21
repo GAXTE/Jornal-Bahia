@@ -9,10 +9,9 @@ export const LatestNews = () => {
   const [page, setPage] = useState(0);
   const [paginatedView, setPaginatedView] = useState<IPost[]>([]);
   const idCount: Record<string, number> = {};
-
+  
   useEffect(() => {
     const paginated = pagination(AllPosts, 3, page);
-
     setPaginatedView([...paginatedView, ...paginated]);
   }, [page, AllPosts]);
 
@@ -33,12 +32,8 @@ export const LatestNews = () => {
                     alt={"texto alternativo"}
                   />
                   <div className="flex flex-col gap-3">
-                    <strong className="label-mobile lg:label">
-                      {post.categories[0].name}
-                    </strong>
-                    <h3 className="tittle-2-mobile lg:tittle-2">
-                      {post.title}
-                    </h3>
+                    <strong className="label-mobile lg:label">{post.categories[0].name}</strong>
+                    <h3 className="tittle-2-mobile lg:tittle-2">{post.title}</h3>
                   </div>
                   <span className="opaque-text mt-4">há 2 horas</span>
                 </li>
