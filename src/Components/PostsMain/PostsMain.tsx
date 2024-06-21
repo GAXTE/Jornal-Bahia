@@ -24,7 +24,7 @@ export const PostsMain = () => {
       setPosts(newPosts);
     };
     getPosts();
-  }, []);
+  }, [ListAllCategories]);
   return (
     <>
       <section className="mt-[16px] mx-auto flex flex-wrap gap-[30px] lg:mt-[37px] lg:justify-between">
@@ -43,12 +43,8 @@ export const PostsMain = () => {
                   />
                 </div>
                 <div className="flex flex-col max-w-[263px] min-w-[200px]">
-                  <strong className=" label-mobile lg:label mb-2">
-                    {post.categories[0].name}
-                  </strong>
-                  <h3 className="tittle-3- overflow-auto whitespace-normal">
-                    {post.title}
-                  </h3>
+                  <strong className=" label-mobile lg:label mb-2">{post.categories[0].name}</strong>
+                  <h3 className="tittle-3- overflow-auto whitespace-normal">{post.title}</h3>
                   <span className="opaque-text mt-[6px]">há 2 horas</span>
                 </div>
               </li>
