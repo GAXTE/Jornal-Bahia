@@ -9,10 +9,11 @@ export const LatestNews = () => {
   const [page, setPage] = useState(0);
   const [paginatedView, setPaginatedView] = useState<IPost[]>([]);
   const idCount: Record<string, number> = {};
+  
   useEffect(() => {
     const paginated = pagination(AllPosts, 3, page);
     setPaginatedView([...paginatedView, ...paginated]);
-  }, [page]);
+  }, [page, AllPosts]);
 
   return (
     <>
