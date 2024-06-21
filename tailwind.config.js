@@ -1,3 +1,5 @@
+import { color } from "framer-motion";
+
 /** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
 export default {
@@ -11,6 +13,13 @@ export default {
           lg: "1120px",
         },
       },
+    },
+    colors: {
+      primary: "#FF4A57",
+      secondary: "#FFD600",
+      black: "#000000",
+      white: "#FFFFFF",
+      gray: "#efefef",
     },
   },
   plugins: [
@@ -96,6 +105,14 @@ export default {
           color: "var(--color-primary)",
           fontWeight: "600",
           lineHeight: "19.05px",
+        },
+        ".footer-text": {
+          fontFamily: "var(--font-primary)",
+          opacity: "0.5",
+          fontSize: "16px",
+          color: "var(--color-black)",
+          fontWeight: "500",
+          lineHeight: "30px",
         },
       });
     }),
