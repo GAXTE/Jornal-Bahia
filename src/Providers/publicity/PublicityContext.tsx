@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Api } from "../../Services/api";
-import Cache from "js-cache";
 
 interface Props {
   children: React.ReactNode;
@@ -27,19 +26,26 @@ export const PublicityContext = React.createContext<IPublicityContext>({
   publicityOthers: [],
 });
 
-export const cache = new Cache();
-
 export const PublicityProvider: React.FC<Props> = ({ children }) => {
   const [publicityBanners, setPublicityBanners] = useState<Publicity[]>([]);
   const [publicityOthers, setPublicityOthers] = useState<Publicity[]>([]);
 
-  const getAllPublicity = async () => {
-    const cachedBanners = cache.get("publicityBanners");
-    const cachedOthers = cache.get("publicityOthers");
+  const CACHE_TTL = 12 * 60 * 60 * 1000; // 12 horas em milissegundos
 
-    if (cachedBanners && cachedOthers) {
-      setPublicityBanners(cachedBanners);
-      setPublicityOthers(cachedOthers);
+  const getAllPublicity = async () => {
+    const cachedBanners = sessionStorage.getItem("publicityBanners");
+    const cachedOthers = sessionStorage.getItem("publicityOthers");
+    const cachedTimestamp = sessionStorage.getItem("publicityTimestamp");
+    const currentTime = Date.now();
+
+    if (
+      cachedBanners &&
+      cachedOthers &&
+      cachedTimestamp &&
+      currentTime - parseInt(cachedTimestamp) < CACHE_TTL
+    ) {
+      setPublicityBanners(JSON.parse(cachedBanners));
+      setPublicityOthers(JSON.parse(cachedOthers));
       return;
     }
 
@@ -48,22 +54,32 @@ export const PublicityProvider: React.FC<Props> = ({ children }) => {
       const banners = data.filter((item) => item.type === "0");
       const others = data.filter((item) => item.type !== "0");
 
-      cache.set("publicityBanners", banners, 86400000);
-      cache.set("publicityOthers", others, 86400000);
+      sessionStorage.setItem("publicityBanners", JSON.stringify(banners));
+      sessionStorage.setItem("publicityOthers", JSON.stringify(others));
+      sessionStorage.setItem("publicityTimestamp", currentTime.toString());
 
       setPublicityBanners(banners);
       setPublicityOthers(others);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching publicity data", error);
+    }
   };
 
   useEffect(() => {
     getAllPublicity();
+    const interval = setInterval(() => {
+      sessionStorage.removeItem("publicityBanners");
+      sessionStorage.removeItem("publicityOthers");
+      sessionStorage.removeItem("publicityTimestamp");
+      getAllPublicity();
+    }, CACHE_TTL);
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <PublicityContext.Provider
       value={{
-        getAllPublicity: getAllPublicity,
+        getAllPublicity,
         publicityBanners,
         publicityOthers,
       }}

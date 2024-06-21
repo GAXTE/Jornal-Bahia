@@ -12,23 +12,23 @@ export const ListOfCategories = ({ style }: IListOfCategories) => {
         style={style}
       >
         <ul
-          className="text-nowrap hidden lg:flex gap-[23px] w-full justify-between font-primaryFont text-16px font-medium overflow-hidden"
+          className="menu-text text-nowrap hidden lg:flex gap-[23px] w-full justify-between font-primaryFont text-16px font-medium overflow-hidden"
           style={style}
         >
-          <li>Politica</li>
-          <li>Esportes</li>
-          <li>Municípios</li>
-          <li>Educação</li>
-          <li>Saúde</li>
-          <li>Entretenimento</li>
-          <li>JB Agro</li>
-          <li>Turismo</li>
-          <li>Salvador</li>
-          <li>Artigos</li>
-          <li>Justiça</li>
-          <li>Colunistas</li>
-          <li>Bahia</li>
-          <li>Eleições 2024:</li>
+          <li className="cursor-pointer">Politica</li>
+          <li className="cursor-pointer">Esportes</li>
+          <li className="cursor-pointer">Municípios</li>
+          <li className="cursor-pointer">Educação</li>
+          <li className="cursor-pointer">Saúde</li>
+          <li className="cursor-pointer">Entretenimento</li>
+          <li className="cursor-pointer">JB Agro</li>
+          <li className="cursor-pointer">Turismo</li>
+          <li className="cursor-pointer">Salvador</li>
+          <li className="cursor-pointer">Artigos</li>
+          <li className="cursor-pointer">Justiça</li>
+          <li className="cursor-pointer">Colunistas</li>
+          <li className="cursor-pointer">Bahia</li>
+          <li className="cursor-pointer">Eleições 2024:</li>
         </ul>
       </div>
     </>

@@ -1,4 +1,3 @@
-import Cache from "js-cache";
 import React, { useContext, useEffect, useState } from "react";
 import { Api } from "../../Services/api";
 import { IListCategory } from "../../types/CategoryTypes";
@@ -22,16 +21,13 @@ export const CategoryContext = React.createContext<ICategoryContext>({
   PostsMain: [],
 });
 
-const cache = new Cache();
-const CACHE_KEY = "postMain";
-const CACHE_TIMESTAMP_KEY = "postMainTimestamp";
-const CACHE_TTL = 0.2 * 60 * 1000; // 10 minutos em milissegundos
-
 export const CategoryProvider: React.FC<Props> = ({ children }) => {
   const [ListAllCategories, setCategories] = useState<IListCategory>(
     JSON.parse(localStorage.getItem("categories") || "[]")
   );
   const [PostsMain, setPostsMain] = useState<IPost[]>([]);
+
+  const CACHE_TTL = 10 * 60 * 1000; // 10 minutos em milissegundos
 
   const getAllCategories = async () => {
     try {
@@ -51,13 +47,13 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
   };
 
   const getPostsForMain = async () => {
-    const cachedPosts = cache.get(CACHE_KEY);
-    const cachedTimestamp = cache.get(CACHE_TIMESTAMP_KEY);
+    const cachedPosts = sessionStorage.getItem("postMain");
+    const cachedTimestamp = sessionStorage.getItem("postMainTimestamp");
     const currentTime = Date.now();
 
-    if (cachedPosts && cachedTimestamp && currentTime - cachedTimestamp < CACHE_TTL) {
-      setPostsMain(cachedPosts);
-      return cachedPosts;
+    if (cachedPosts && cachedTimestamp && currentTime - parseInt(cachedTimestamp) < CACHE_TTL) {
+      setPostsMain(JSON.parse(cachedPosts));
+      return JSON.parse(cachedPosts);
     }
 
     const data = await getAllPostByCategory("89202bb2-5f14-4a7d-bf18-217cd161ac82");
@@ -65,8 +61,8 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
       const sortedData = data.sort(
         (a: IPost, b: IPost) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
       );
-      cache.set(CACHE_KEY, sortedData, CACHE_TTL);
-      cache.set(CACHE_TIMESTAMP_KEY, currentTime, CACHE_TTL);
+      sessionStorage.setItem("postMain", JSON.stringify(sortedData));
+      sessionStorage.setItem("postMainTimestamp", currentTime.toString());
       setPostsMain(sortedData);
       return sortedData;
     }
@@ -76,7 +72,11 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     getPostsForMain();
     getAllCategories();
-    const interval = setInterval(getPostsForMain, CACHE_TTL);
+    const interval = setInterval(() => {
+      sessionStorage.removeItem("postMain");
+      sessionStorage.removeItem("postMainTimestamp");
+      getPostsForMain();
+    }, CACHE_TTL);
     return () => clearInterval(interval);
   }, []);
 
