@@ -3,6 +3,7 @@ import { LatestNews } from "../../Components/LatestNews/LatesteNews";
 import { MostRead } from "../../Components/MostRead/MostRead";
 import { PostCategories } from "../../Components/PostCategories/PostCatories";
 import { PostsMain } from "../../Components/PostsMain/PostsMain";
+import { Publicities } from "../../Components/Publicities/publicities";
 import { PublicityBanner } from "../../Components/PublicityBanner/PublicityBanner";
 
 export const Homepage = () => {
@@ -16,8 +17,9 @@ export const Homepage = () => {
           <MostRead />
           <PostCategories />
         </section>
-        <section>
+        <section className="flex flex-col-reverse lg:flex-row lg:justify-between lg:relative">
           <LatestNews />
+          <Publicities />
         </section>
       </main>
     </>
