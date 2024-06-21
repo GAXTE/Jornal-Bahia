@@ -7,9 +7,12 @@ interface IListOfCategories {
 export const ListOfCategories = ({ style }: IListOfCategories) => {
   return (
     <>
-      <div className="container hidden lg:flex  min-h-[52px] items-center " style={style}>
+      <div
+        className="container hidden lg:flex  min-h-[52px] items-center "
+        style={style}
+      >
         <ul
-          className="text-nowrap hidden lg:flex gap-[23px] w-full justify-between font-primaryFont text-16px font-medium overflow-hidden"
+          className="menu-text text-nowrap hidden lg:flex gap-[23px] w-full justify-between font-primaryFont text-16px font-medium overflow-hidden"
           style={style}
         >
           <li className="cursor-pointer">Politica</li>

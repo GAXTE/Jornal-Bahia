@@ -40,23 +40,42 @@ export const PostCategories = () => {
 
   return (
     <div className="flex-col">
-      {uniqueCategoryPosts.map((post, index) => (
-        <li key={post.id} className="flex flex-col mb-4">
-          <div className="flex flex-col mb-2">
-            {index === 0 && (
-              <img className="max-w-[348px] max-h-[188px]" src={post.photoUrls} alt={post.title} />
-            )}
-            <h2>{post.title}</h2>
-            <span>
-              {new Date(post.createdAt).toLocaleTimeString("pt-BR", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </span>
-            {index !== 0 && <strong>{post.categories[0].name}</strong>}
-          </div>
-        </li>
-      ))}
+      <ul className="flex flex-col gap-[13px] lg:max-w-[348px]">
+        {uniqueCategoryPosts.map((post, index) => (
+          <li
+            key={post.id}
+            className="flex flex-col mb-4 
+            "
+          >
+            <div className="flex flex-col mb-2 ">
+              {index === 0 && (
+                <div className="flex flex-col gap-6">
+                  <img
+                    className="max-w-[348px] max-h-[188px] rounded-lg object-cover"
+                    src={post.photoUrls}
+                    alt={post.title}
+                  />
+                  <h2 className="tittle-2">{post.title}</h2>
+                </div>
+              )}
+              {index !== 0 && (
+                <div className="flex flex-col gap-[10px]">
+                  <strong className="label-mobile ">
+                    {post.categories[0].name}
+                  </strong>
+                  <h2 className="tittle-2-mobile">{post.title}</h2>
+                </div>
+              )}
+              <span className="opaque-text mt-[6px] lg:mt-[10px]">
+                {new Date(post.createdAt).toLocaleTimeString("pt-BR", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

@@ -42,7 +42,7 @@ export const Slider = () => {
         <img
           src={images[current]}
           alt="slide"
-          className="w-[637px] h-[499px] object-cover min-h-[463px] rounded-md"
+          className="w-[637px] h-[499px] object-cover min-h-[463px] rounded-2xl"
         />
         <span
           className="absolute top-[32px] left-[45px] label-category"

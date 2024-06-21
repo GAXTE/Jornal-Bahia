@@ -12,7 +12,7 @@ export const Homepage = () => {
       <main className="container">
         <PublicityBanner />
         <PostsMain />
-        <section className="flex mt-[57px] ">
+        <section className="flex flex-col-reverse mt-[57px] lg:flex-row lg:justify-between">
           <MostRead />
           <PostCategories />
         </section>
