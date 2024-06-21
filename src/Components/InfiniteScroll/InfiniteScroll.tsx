@@ -12,7 +12,6 @@ export const InfiniteScroll = ({ Callback }: IInfiniteScroll) => {
       const ratio = entry.intersectionRatio;
 
       if (ratio > 0) {
-        console.log("Intersecting");
         Callback();
       }
     });
