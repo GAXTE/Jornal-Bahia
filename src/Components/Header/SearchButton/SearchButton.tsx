@@ -4,9 +4,20 @@ import search from "../../../assets/search.png";
 
 export const SearchButton = () => {
   const [inputVisible, setInputVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const toggleInput = () => {
     setInputVisible(!inputVisible);
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && searchTerm) {
+      window.location.href = `/search/${searchTerm}`;
+    }
   };
 
   return (
@@ -20,7 +31,7 @@ export const SearchButton = () => {
       </motion.button>
       {inputVisible && (
         <motion.div
-          className="input-container p-[6px]  "
+          className="input-container p-[6px]"
           initial={{ x: -10, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
@@ -42,8 +53,10 @@ export const SearchButton = () => {
             style={{
               paddingLeft: "16px",
             }}
+            value={searchTerm}
+            onChange={handleSearchChange}
+            onKeyDown={handleKeyDown}
           />
-          {""}
         </motion.div>
       )}
     </nav>
