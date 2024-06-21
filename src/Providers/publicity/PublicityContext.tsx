@@ -60,9 +60,7 @@ export const PublicityProvider: React.FC<Props> = ({ children }) => {
 
       setPublicityBanners(banners);
       setPublicityOthers(others);
-    } catch (error) {
-      console.error("Error fetching publicity data", error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
