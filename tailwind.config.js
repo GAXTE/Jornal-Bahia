@@ -20,6 +20,9 @@ export default {
       black: "#000000",
       white: "#FFFFFF",
       gray: "#efefef",
+      blueFace: "#5C8AFF",
+      greenWhatsapp: "#3EB959",
+      BlackX: "#161616",
     },
   },
   plugins: [
