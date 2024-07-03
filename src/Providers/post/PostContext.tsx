@@ -10,7 +10,11 @@ interface IPostContext {
   getMostRead: () => void;
   getAllPosts: () => void;
   search: (posts: IPost[], search: string) => IPost[];
-  pagination: (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number) => IPost[];
+  pagination: (
+    obj: IPost[] | undefined | null,
+    pageSize: number,
+    pageNumber: number
+  ) => IPost[];
   postMostState?: IPost[];
   AllPosts?: IPost[];
 }
@@ -35,7 +39,11 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     const tenMinutes = 5 * 60 * 1000;
     const now = new Date().getTime();
 
-    if (cachedPosts && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
+    if (
+      cachedPosts &&
+      lastFetchTime &&
+      now - parseInt(lastFetchTime) < tenMinutes
+    ) {
       setGetAllPosts(JSON.parse(cachedPosts));
       return;
     }
@@ -57,7 +65,11 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     const tenMinutes = 10 * 60 * 1000;
     const now = new Date().getTime();
 
-    if (postsMostReads && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
+    if (
+      postsMostReads &&
+      lastFetchTime &&
+      now - parseInt(lastFetchTime) < tenMinutes
+    ) {
       setPostMostState(JSON.parse(postsMostReads));
       return;
     }
@@ -76,12 +88,19 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
       (post) =>
         regex.test(post.title) ||
         regex.test(post.content) ||
-        post.categories.some((category) => regex.test(category.name) || regex.test(category.description))
+        post.categories.some(
+          (category) =>
+            regex.test(category.name) || regex.test(category.description)
+        )
     );
     return searchResult;
   };
 
-  const pagination = (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number): IPost[] => {
+  const pagination = (
+    obj: IPost[] | undefined | null,
+    pageSize: number,
+    pageNumber: number
+  ): IPost[] => {
     --pageNumber;
     --pageNumber;
     if (!obj) return [];
@@ -99,7 +118,16 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <PostContext.Provider value={{ postMostState, getMostRead, getAllPosts, AllPosts, pagination, search }}>
+    <PostContext.Provider
+      value={{
+        postMostState,
+        getMostRead,
+        getAllPosts,
+        AllPosts,
+        pagination,
+        search,
+      }}
+    >
       {children}
     </PostContext.Provider>
   );
