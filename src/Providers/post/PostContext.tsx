@@ -79,7 +79,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
       const { data } = await Api.get(`/post/${id}`);
       return data;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 
