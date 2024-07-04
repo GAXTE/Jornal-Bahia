@@ -6,6 +6,9 @@ import { DateComponent } from "../Date/Date";
 export const PostCategories = () => {
   const { AllPosts } = usePostContext();
   const [uniqueCategoryPosts, setUniqueCategoryPosts] = useState<IPost[]>([]);
+  const [categoryFirstPost, setCategoryFirstPost] = useState<
+    IPost | undefined
+  >();
 
   useEffect(() => {
     if (AllPosts) {
@@ -13,6 +16,7 @@ export const PostCategories = () => {
       const shuffledPosts = shuffleArray(filteredPosts);
       const limitedPosts = shuffledPosts.slice(0, 5);
       setUniqueCategoryPosts(limitedPosts);
+      setCategoryFirstPost(limitedPosts[0]);
     }
   }, [AllPosts]);
 
@@ -26,8 +30,10 @@ export const PostCategories = () => {
         }
       }
     });
+
     return Object.values(uniqueCategoriesMap);
   };
+  console.log(categoryFirstPost);
 
   const shuffleArray = (array: any[]): any[] => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -41,18 +47,21 @@ export const PostCategories = () => {
 
   return (
     <div className="flex-col">
-      <ul className="flex flex-col gap-[13px] lg:max-w-[348px]">
+      <ul className="flex flex-col  gap-[13px] max-w-[600px] lg:max-w-[348px]">
+        <button className="self-start h-[33px] lg:h-[39px] w-[97px] lg:w-[120px] bg- rounded label-category ">
+          {categoryFirstPost?.categories[0].name}
+        </button>
         {uniqueCategoryPosts.map((post, index) => (
           <li
             key={post.id}
             className="flex flex-col mb-4 
-            "
+          "
           >
-            <div className="flex flex-col mb-2 ">
+            <div className="flex flex-col  mb-2 ">
               {index === 0 && (
                 <div className="flex flex-col gap-6">
                   <img
-                    className="max-w-[348px] max-h-[188px] rounded-lg object-cover"
+                    className="max-w-[full] max-h-[188px] rounded-lg object-cover"
                     src={post.photoUrls}
                     alt={post.title}
                   />

@@ -78,7 +78,7 @@ export const Publicities: React.FC = () => {
   };
 
   return (
-    <div className="flex lg:w-[348px] h-[261px] lg:sticky lg:top-12">
+    <div className="flex md:w-[348px] lg:w-[348px] h-[261px] lg:sticky lg:top-12">
       <div className="w-full h-full">
         {publicityOthers.length > 0 && renderAd()}
       </div>
