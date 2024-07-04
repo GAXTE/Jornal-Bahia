@@ -3,10 +3,12 @@ import { useCategoryContext } from "../../Providers/category/CategoryContext";
 import { Slider } from "./Slider/Slider";
 import { IPost } from "../../types/PostTypes";
 import { DateComponent } from "../Date/Date";
+import { useNavigate } from "react-router-dom";
 
 export const PostsMain = () => {
   const { getAllPostByCategory, ListAllCategories } = useCategoryContext();
   const [posts, setPosts] = useState<IPost[] | []>([]);
+  const navi = useNavigate();
   useEffect(() => {
     const getPosts = async () => {
       const posts1 = await getAllPostByCategory(ListAllCategories[0].id);
@@ -26,6 +28,9 @@ export const PostsMain = () => {
     };
     getPosts();
   }, [ListAllCategories]);
+  const handlePostClick = (postId: string) => {
+    navi(`/viewpost/${postId}`);
+  };
   return (
     <>
       <section className="mt-[16px] mx-auto flex flex-col lg:flex-row items-center  gap-[30px] lg:mt-[37px] lg:justify-between">
@@ -40,14 +45,16 @@ export const PostsMain = () => {
                   <img
                     src={post.photoUrls[0]}
                     alt=""
-                    className="rounded-lg min-h-[79px] max-w-[79px] lg:h-[153px] lg:w-[153px] lg:max-w-[153px]  object-cover"
+                    className="cursor-pointer rounded-lg min-h-[79px] max-w-[79px] lg:h-[153px] lg:w-[153px] lg:max-w-[153px]  object-cover"
+                    onClick={() => handlePostClick(post.id)}
                   />
                 </div>
                 <div className="flex flex-col max-w-[263px] min-w-[200px] md:min-w-[500px] lg:min-w-[100px] lg:max-w-[263px]">
-                  <strong className=" label-mobile lg:label mb-2">
-                    {post.categories[0].name}
-                  </strong>
-                  <h3 className="tittle-3- overflow-auto whitespace-normal ">
+                  <strong className=" label-mobile lg:label mb-2">{post.categories[0].name}</strong>
+                  <h3
+                    className="cursor-pointer tittle-3- overflow-auto whitespace-normal "
+                    onClick={() => handlePostClick(post.id)}
+                  >
                     {post.title}
                   </h3>
                   <DateComponent data={post.createdAt} />
