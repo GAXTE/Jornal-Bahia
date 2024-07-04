@@ -20,7 +20,7 @@ export const LatestNews = ({ posts }: IProps) => {
   }, [page, posts]);
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col max-w-[600px]">
         <ul className="flex flex-col gap-[25px] lg:max-w-[600px] ">
           <h2 className="tittle-1-mobile lg:title-1">Últimas Notícias</h2>
           {paginatedView.map((post, index) => {
@@ -30,7 +30,7 @@ export const LatestNews = ({ posts }: IProps) => {
               <React.Fragment key={key}>
                 <li className="flex flex-col gap-[20px]">
                   <img
-                    className="max-w-[348px] max-h-[188px] rounded-lg lg:max-w-[249px] lg:min-w-[249px] lg:max-h-[249px] lg:min-h-[249px] object-cover"
+                    className="max-w-[full] max-h-[188px] rounded-lg lg:max-w-[249px] lg:min-w-[249px] lg:max-h-[249px] lg:min-h-[249px] object-cover"
                     src={post.photoUrls[0]}
                     alt={"texto alternativo"}
                   />

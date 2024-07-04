@@ -27,7 +27,7 @@ export const PublicityBanner = () => {
         <img
           src={publicityBanners[currentBannerIndex].imageUrl}
           alt={publicityBanners[currentBannerIndex].description}
-          className="h-[43px] w-[348px] max-w-full lg:h-[90px] lg:w-[728px] object-cover"
+          className="h-[43px] w-[348px] md:w-[600px] max-w-full lg:h-[90px] lg:w-[728px] object-cover"
         />
       </div>
     </section>
