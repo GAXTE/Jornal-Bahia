@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { usePostContext } from "../../Providers/post/PostContext";
 import { IPost } from "../../types/PostTypes";
+import { DateComponent } from "../Date/Date";
 
 export const PostCategories = () => {
   const { AllPosts } = usePostContext();
@@ -60,18 +61,11 @@ export const PostCategories = () => {
               )}
               {index !== 0 && (
                 <div className="flex flex-col gap-[10px]">
-                  <strong className="label-mobile ">
-                    {post.categories[0].name}
-                  </strong>
+                  <strong className="label-mobile ">{post.categories[0].name}</strong>
                   <h2 className="tittle-2-mobile">{post.title}</h2>
                 </div>
               )}
-              <span className="opaque-text mt-[6px] lg:mt-[10px]">
-                {new Date(post.createdAt).toLocaleTimeString("pt-BR", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </span>
+              <DateComponent data={post.createdAt} />
             </div>
           </li>
         ))}

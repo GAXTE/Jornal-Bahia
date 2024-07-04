@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCategoryContext } from "../../Providers/category/CategoryContext";
 import { Slider } from "./Slider/Slider";
 import { IPost } from "../../types/PostTypes";
+import { DateComponent } from "../Date/Date";
 
 export const PostsMain = () => {
   const { getAllPostByCategory, ListAllCategories } = useCategoryContext();
@@ -45,7 +46,8 @@ export const PostsMain = () => {
                 <div className="flex flex-col max-w-[263px] min-w-[200px]">
                   <strong className=" label-mobile lg:label mb-2">{post.categories[0].name}</strong>
                   <h3 className="tittle-3- overflow-auto whitespace-normal">{post.title}</h3>
-                  <span className="opaque-text mt-[6px]">há 2 horas</span>
+                  {/* <span className="opaque-text mt-[6px]">há 2 horas</span> */}
+                  <DateComponent data={post.createdAt} />
                 </div>
               </li>
             ))}
