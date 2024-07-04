@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCategoryContext } from "../../Providers/category/CategoryContext";
 import { Slider } from "./Slider/Slider";
 import { IPost } from "../../types/PostTypes";
+import { DateComponent } from "../Date/Date";
 
 export const PostsMain = () => {
   const { getAllPostByCategory, ListAllCategories } = useCategoryContext();
@@ -9,8 +10,8 @@ export const PostsMain = () => {
   useEffect(() => {
     const getPosts = async () => {
       const posts1 = await getAllPostByCategory(ListAllCategories[0].id);
-      const posts2 = await getAllPostByCategory(ListAllCategories[7].id);
-      const posts3 = await getAllPostByCategory(ListAllCategories[8].id);
+      const posts2 = await getAllPostByCategory(ListAllCategories[6].id);
+      const posts3 = await getAllPostByCategory(ListAllCategories[14].id);
 
       const post1 = posts1[posts1.length - 1];
       const post2 = posts2[posts2.length - 1];
@@ -49,7 +50,7 @@ export const PostsMain = () => {
                   <h3 className="tittle-3- overflow-auto whitespace-normal ">
                     {post.title}
                   </h3>
-                  <span className="opaque-text mt-[6px]">há 2 horas</span>
+                  <DateComponent data={post.createdAt} />
                 </div>
               </li>
             ))}

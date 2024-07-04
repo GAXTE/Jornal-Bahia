@@ -7,34 +7,28 @@ export const Slider = () => {
   const { PostsMain } = useCategoryContext();
   const images = PostsMain.slice(-4).map((post) => post.photoUrls[0]);
   const titles = PostsMain.slice(-4).map((post) => post.title);
+
   const nextSlide = () => {
-    let nextIndex = current + 1;
-    if (nextIndex >= images.length) {
-      nextIndex = 0;
-    }
-    setCurrent(nextIndex);
+    setCurrent((prev) => (prev + 1) % images.length);
   };
 
   const prevSlide = () => {
-    let prevIndex = current - 1;
-    if (prevIndex <= 0) {
-      prevIndex = images.length - 1;
-    }
-    setCurrent(prevIndex);
+    setCurrent((prev) => (prev - 1 + images.length) % images.length);
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
+    const interval = setInterval(nextSlide, 7000);
     return () => clearInterval(interval);
-  }, [current]);
+  }, [images.length]);
+
+  if (images.length === 0 || titles.length === 0) {
+  }
   return (
     <div className="relative max-w-[600px] min-w-[320px]">
       <motion.div
         key={current}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 2 }}
+        animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 2 }}
         className="max-w-[600px] min-w-[320px] w-full"
@@ -50,7 +44,7 @@ export const Slider = () => {
         >
           Principais
         </span>
-        <div className="absolute top-2/3 min-w-[px] min-h-[108px] max-w-[540px] ml-[45px] mr-[52px]">
+        <div className="absolute top-2/3 min-w-[320px] min-h-[108px] max-w-[540px] ml-[45px] mr-[52px]">
           <p className="text-wrap text-[#ffffff] font-extrabold lg:text-[30px] text-[22px] line-clamp-4">
             {titles[current]}
           </p>

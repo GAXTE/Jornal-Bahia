@@ -9,12 +9,9 @@ interface Props {
 interface IPostContext {
   getMostRead: () => void;
   getAllPosts: () => void;
+  getPostById: (id: string) => Promise<IPost>;
   search: (posts: IPost[], search: string) => IPost[];
-  pagination: (
-    obj: IPost[] | undefined | null,
-    pageSize: number,
-    pageNumber: number
-  ) => IPost[];
+  pagination: (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number) => IPost[];
   postMostState?: IPost[];
   AllPosts?: IPost[];
 }
@@ -23,6 +20,9 @@ export const PostContext = React.createContext<IPostContext>({
   getAllPosts: () => {},
   getMostRead: () => {},
   pagination: () => [],
+  getPostById: async () => {
+    return {} as IPost;
+  },
   search: () => [],
   postMostState: [],
   AllPosts: [],
@@ -39,11 +39,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     const tenMinutes = 5 * 60 * 1000;
     const now = new Date().getTime();
 
-    if (
-      cachedPosts &&
-      lastFetchTime &&
-      now - parseInt(lastFetchTime) < tenMinutes
-    ) {
+    if (cachedPosts && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
       setGetAllPosts(JSON.parse(cachedPosts));
       return;
     }
@@ -65,11 +61,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     const tenMinutes = 10 * 60 * 1000;
     const now = new Date().getTime();
 
-    if (
-      postsMostReads &&
-      lastFetchTime &&
-      now - parseInt(lastFetchTime) < tenMinutes
-    ) {
+    if (postsMostReads && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
       setPostMostState(JSON.parse(postsMostReads));
       return;
     }
@@ -82,25 +74,28 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     } catch (error) {}
   };
 
-  const search = (posts: IPost[], search: string): IPost[] => {
-    const regex = new RegExp(search, "i");
+  const getPostById = async (id: string) => {
+    try {
+      const { data } = await Api.get(`/post/${id}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const search = (posts: IPost[], searchTerm: string): IPost[] => {
+    const regex = new RegExp(searchTerm, "i");
     const searchResult = posts.filter(
       (post) =>
         regex.test(post.title) ||
         regex.test(post.content) ||
-        post.categories.some(
-          (category) =>
-            regex.test(category.name) || regex.test(category.description)
-        )
+        post.tags.some((tag) => regex.test(tag.name)) ||
+        post.categories.some((category) => regex.test(category.name) || regex.test(category.description))
     );
     return searchResult;
   };
 
-  const pagination = (
-    obj: IPost[] | undefined | null,
-    pageSize: number,
-    pageNumber: number
-  ): IPost[] => {
+  const pagination = (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number): IPost[] => {
     --pageNumber;
     --pageNumber;
     if (!obj) return [];
@@ -126,6 +121,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
         AllPosts,
         pagination,
         search,
+        getPostById,
       }}
     >
       {children}

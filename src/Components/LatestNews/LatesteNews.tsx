@@ -3,6 +3,7 @@ import { usePostContext } from "../../Providers/post/PostContext";
 import { PublicityBanner } from "../PublicityBanner/PublicityBanner";
 import { InfiniteScroll } from "../InfiniteScroll/InfiniteScroll";
 import { IPost } from "../../types/PostTypes";
+import { DateComponent } from "../Date/Date";
 
 interface IProps {
   posts: IPost[];
@@ -35,14 +36,10 @@ export const LatestNews = ({ posts }: IProps) => {
                     alt={"texto alternativo"}
                   />
                   <div className="flex flex-col gap-3">
-                    <strong className="label-mobile lg:label">
-                      {post.categories[0].name}
-                    </strong>
-                    <h3 className="tittle-2-mobile lg:tittle-2">
-                      {post.title}
-                    </h3>
+                    <strong className="label-mobile lg:label">{post.categories[0].name}</strong>
+                    <h3 className="tittle-2-mobile lg:tittle-2">{post.title}</h3>
                   </div>
-                  <span className="opaque-text mt-4">há 2 horas</span>
+                  <DateComponent data={post.createdAt} />
                 </li>
                 {(index + 1) % 3 === 0 && <PublicityBanner />}
               </React.Fragment>
