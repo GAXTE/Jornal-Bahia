@@ -48,7 +48,7 @@ export const PostCategories = () => {
   return (
     <div className="flex-col">
       <ul className="flex flex-col  gap-[13px] max-w-[600px] lg:max-w-[348px]">
-        <button className="self-start h-[33px] lg:h-[39px] w-[97px] lg:w-[120px] bg- rounded label-category ">
+        <button className="self-start h-[33px] bg-primary lg:h-[39px] w-[97px] lg:w-[120px] bg- rounded label-category ">
           {categoryFirstPost?.categories[0].name}
         </button>
         {uniqueCategoryPosts.map((post, index) => (
@@ -70,7 +70,9 @@ export const PostCategories = () => {
               )}
               {index !== 0 && (
                 <div className="flex flex-col gap-[10px]">
-                  <strong className="label-mobile ">{post.categories[0].name}</strong>
+                  <strong className="label-mobile ">
+                    {post.categories[0].name}
+                  </strong>
                   <h2 className="tittle-2-mobile">{post.title}</h2>
                 </div>
               )}
