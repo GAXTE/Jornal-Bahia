@@ -13,14 +13,14 @@ export const Homepage = () => {
   return (
     <>
       <Header />
-      <main className="container">
+      <main className="container ">
         <PublicityBanner />
         <PostsMain />
-        <section className="flex flex-col-reverse mt-[57px] lg:flex-row lg:justify-between">
+        <section className="flex flex-col-reverse items-center mt-[57px] lg:flex-row lg:items-start lg:justify-between">
           <MostRead />
           <PostCategories />
         </section>
-        <section className="flex flex-col-reverse lg:flex-row lg:justify-between lg:relative">
+        <section className="flex flex-col-reverse gap-7 md:items-center lg:items-start lg:flex-row lg:justify-between lg:relative">
           <LatestNews posts={AllPosts!} />
           <Publicities />
         </section>
