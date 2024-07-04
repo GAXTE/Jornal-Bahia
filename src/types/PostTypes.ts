@@ -9,6 +9,12 @@ export interface IPost {
   publishedAt: Date;
   published: boolean;
   scheduledAt: null;
+  tags: [
+    {
+      id: string;
+      name: string;
+    }
+  ];
   categories: [
     {
       id: string;

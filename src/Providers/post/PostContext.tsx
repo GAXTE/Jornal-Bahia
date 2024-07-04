@@ -9,6 +9,7 @@ interface Props {
 interface IPostContext {
   getMostRead: () => void;
   getAllPosts: () => void;
+  getPostById: (id: string) => Promise<IPost>;
   search: (posts: IPost[], search: string) => IPost[];
   pagination: (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number) => IPost[];
   postMostState?: IPost[];
@@ -19,6 +20,9 @@ export const PostContext = React.createContext<IPostContext>({
   getAllPosts: () => {},
   getMostRead: () => {},
   pagination: () => [],
+  getPostById: async () => {
+    return {} as IPost;
+  },
   search: () => [],
   postMostState: [],
   AllPosts: [],
@@ -70,12 +74,22 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     } catch (error) {}
   };
 
-  const search = (posts: IPost[], search: string): IPost[] => {
-    const regex = new RegExp(search, "i");
+  const getPostById = async (id: string) => {
+    try {
+      const { data } = await Api.get(`/post/${id}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const search = (posts: IPost[], searchTerm: string): IPost[] => {
+    const regex = new RegExp(searchTerm, "i");
     const searchResult = posts.filter(
       (post) =>
         regex.test(post.title) ||
         regex.test(post.content) ||
+        post.tags.some((tag) => regex.test(tag.name)) ||
         post.categories.some((category) => regex.test(category.name) || regex.test(category.description))
     );
     return searchResult;
@@ -99,7 +113,17 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <PostContext.Provider value={{ postMostState, getMostRead, getAllPosts, AllPosts, pagination, search }}>
+    <PostContext.Provider
+      value={{
+        postMostState,
+        getMostRead,
+        getAllPosts,
+        AllPosts,
+        pagination,
+        search,
+        getPostById,
+      }}
+    >
       {children}
     </PostContext.Provider>
   );
