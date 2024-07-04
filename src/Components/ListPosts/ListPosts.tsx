@@ -23,8 +23,8 @@ export const ListPosts = ({ children, posts }: IProps) => {
 
   return (
     <>
-      <section className="flex flex-col my-8  lg:items-center">
-        <ul className="flex flex-col lg:max-w-[550px]">
+      <section className="flex flex-col my-8  items-center">
+        <ul className="flex flex-col md:max-w-[600px] lg:max-w-[550px]">
           <div className="self-start tittle-1-mobile lg:tittle-list-post">
             {children}
             <span className="opaque-text">{posts?.length} resultados</span>
@@ -36,12 +36,12 @@ export const ListPosts = ({ children, posts }: IProps) => {
               <React.Fragment key={key}>
                 <li
                   key={post.id}
-                  className="flex flex-col mt-[25px] gap-[27px]"
+                  className="flex flex-col mt-[25px] gap-[27px] items-center "
                 >
                   <img
                     src={post.photoUrls}
                     alt={""}
-                    className="max-w-[348px] max-h-[188px] rounded-lg object-cover lg:max-w-[550px] lg:min-w-[249px] lg:max-h-[249px] lg:min-h-[249px]"
+                    className="w-full max-h-[188px] rounded-lg object-cover lg:max-w-[550px] lg:min-w-[249px] lg:max-h-[249px] lg:min-h-[249px]"
                   />
                   <div className="flex flex-col items-start justify-center gap-3">
                     <strong className="label-mobile lg:label">
