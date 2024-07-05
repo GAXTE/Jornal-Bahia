@@ -59,7 +59,7 @@ export const Publicities: React.FC = () => {
         <img
           src={currentAd.imageUrl[0]}
           alt="Anuncio"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover lg:mt-9"
         />
       );
     } else if (currentAd.videoUrl.length > 0) {
@@ -69,7 +69,7 @@ export const Publicities: React.FC = () => {
           src={currentAd.videoUrl[0]}
           ref={videoRef}
           autoPlay
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover lg:mt-9"
         />
       );
     }

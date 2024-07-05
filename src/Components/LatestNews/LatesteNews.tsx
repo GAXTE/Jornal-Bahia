@@ -45,22 +45,21 @@ export const LatestNews = ({ posts }: IProps) => {
                     onClick={() => handlePostClick(post.id)}
                   />
                   <div className="flex flex-col gap-3">
-                    <strong
-                      className="label-mobile lg:label cursor-pointer"
+                    <strong className="label-mobile lg:label cursor-pointer"
                       onClick={() => handleCategoryClick(post.categories[0].id)}
-                    >
+                     >
                       {post.categories[0].name}
                     </strong>
-                    <h3
-                      className="tittle-2-mobile lg:tittle-2 cursor-pointer"
+                    <h3 className="tittle-2-mobile lg:tittle-2 cursor-pointer" 
                       onClick={() => handlePostClick(post.id)}
-                    >
+                     >
                       {post.title}
                     </h3>
                   </div>
                   <DateComponent data={post.createdAt} />
                 </li>
                 {(index + 1) % 3 === 0 && <PublicityBanner />}
+                <div className="h-1 lg:h-2"></div>
               </React.Fragment>
             );
           })}
