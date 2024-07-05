@@ -10,10 +10,14 @@ export const ViewPost = ({ post }: IViewPost) => {
   useEffect(() => {}, [post]);
   return (
     <>
-      <section className="max-w-[290px] lg:max-w-[620px] flex flex-col gap-3  ">
-        <strong className="label-mobile lg:label">{post.categories[0].name}</strong>
+      <section className="max-w-[290px] md:max-w-[620px] flex flex-col gap-3  ">
+        <strong className="label-mobile lg:label">
+          {post.categories[0].name}
+        </strong>
         <h1 className="tittle-1-mobile lg:tittle-1">{post.title}</h1>
-        <div className="lg:max-w-[620px]">{post ? parse(post.content) : <p>Carregando...</p>}</div>
+        <div className="lg:max-w-[620px]">
+          {post ? parse(post.content) : <p>Carregando...</p>}
+        </div>
       </section>
     </>
   );

@@ -59,7 +59,7 @@ export const Publicities: React.FC = () => {
         <img
           src={currentAd.imageUrl[0]}
           alt="Anuncio"
-          className="w-full h-full object-cover lg:mt-9"
+          className="w-full h-full object-cover lg:mt-8"
         />
       );
     } else if (currentAd.videoUrl.length > 0) {
@@ -69,7 +69,7 @@ export const Publicities: React.FC = () => {
           src={currentAd.videoUrl[0]}
           ref={videoRef}
           autoPlay
-          className="w-full h-full object-cover lg:mt-9"
+          className="w-full h-full object-cover lg:mt-8"
         />
       );
     }
@@ -78,7 +78,7 @@ export const Publicities: React.FC = () => {
   };
 
   return (
-    <div className="flex md:w-[348px] lg:w-[348px] h-[261px] lg:sticky lg:top-12">
+    <div className="flex max-h-[680px] md:w-[348px] lg:w-[348px]  lg:sticky lg:top-28 mb-6 ">
       <div className="w-full h-full">
         {publicityOthers.length > 0 && renderAd()}
       </div>
