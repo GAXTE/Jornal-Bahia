@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import search from "../../../assets/search.png";
+import React, { useEffect, useRef, useState } from "react";
 
 export const SearchButton = () => {
   const [inputVisible, setInputVisible] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const inputContainerRef = useRef<HTMLDivElement>(null);
 
   const toggleInput = () => {
     setInputVisible(!inputVisible);
@@ -20,6 +21,37 @@ export const SearchButton = () => {
     }
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      inputContainerRef.current &&
+      event.target instanceof Node &&
+      !inputContainerRef.current.contains(event.target)
+    ) {
+      setInputVisible(false);
+    }
+  };
+
+  const handleEscape = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Escape") {
+      setInputVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    if (inputVisible) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscape as any);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape as any);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape as any);
+    };
+  }, [inputVisible]);
+
   return (
     <nav className="menu relative">
       <motion.button
@@ -31,6 +63,7 @@ export const SearchButton = () => {
       </motion.button>
       {inputVisible && (
         <motion.div
+          ref={inputContainerRef}
           className="input-container p-[6px]"
           initial={{ x: -10, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
