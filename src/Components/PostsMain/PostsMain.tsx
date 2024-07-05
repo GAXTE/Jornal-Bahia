@@ -31,6 +31,9 @@ export const PostsMain = () => {
   const handlePostClick = (postId: string) => {
     navi(`/viewpost/${postId}`);
   };
+  const handleCategoryClick = (categoryId: string) => {
+    navi(`/categories/${categoryId}`);
+  };
 
   const MAX_CHARS = 70;
 
@@ -57,7 +60,9 @@ export const PostsMain = () => {
                   />
                 </div>
                 <div className="flex flex-col max-w-[263px] min-w-[200px] md:min-w-[500px] lg:min-w-[100px] lg:max-w-[263px]">
-                  <strong className=" label-mobile lg:label mb-2">
+                  <strong className=" label-mobile lg:label mb-2"
+                    onClick={() => handleCategoryClick(post.categories[0].id)}
+                    >
                     {post.categories[0].name}
                   </strong>
                   <h3

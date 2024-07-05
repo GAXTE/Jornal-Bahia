@@ -13,7 +13,10 @@ export const MostRead = () => {
     navi(`/viewpost/${postId}`);
   };
 
-  const MAX_CHARS = 80; // Exemplo: limite de 100 caracteres
+  const handleCategoryClick = (categoryId: string) => {
+    navi(`/categories/${categoryId}`);
+  };
+  const MAX_CHARS = 80;
 
   function truncateText(text: string, maxChars: number): string {
     return text?.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
@@ -37,7 +40,7 @@ export const MostRead = () => {
                 alt={"texto alternativo"}
               />
               <div className="flex flex-col items-start gap-[12px]">
-                <strong className="label-mobile">
+                <strong className="label-mobile  cursor-pointer" onClick={() => handleCategoryClick(post.categories[0].id)}>
                   {post.categories[0].name}
                 </strong>
                 <h3
