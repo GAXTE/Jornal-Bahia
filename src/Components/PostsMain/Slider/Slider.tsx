@@ -7,6 +7,11 @@ export const Slider = () => {
   const { PostsMain } = useCategoryContext();
   const images = PostsMain.slice(-4).map((post) => post.photoUrls[0]);
   const titles = PostsMain.slice(-4).map((post) => post.title);
+  const MAX_CHARS = 80; // Exemplo: limite de 100 caracteres
+
+  function truncateText(text: string, maxChars: number): string {
+    return text?.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
+  }
 
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % images.length);
@@ -39,14 +44,14 @@ export const Slider = () => {
           className="w-[637px] h-[499px] object-cover min-h-[463px] rounded-2xl"
         />
         <span
-          className="absolute top-[32px] left-[45px] label-category"
+          className="absolute top-[12px] left-[45px] label-category"
           style={{ background: "var(--color-primary)" }}
         >
           Principais
         </span>
-        <div className="absolute top-2/3 min-w-[320px] min-h-[108px] max-w-[540px] ml-[45px] mr-[52px]">
-          <p className="text-wrap text-[#ffffff] font-extrabold lg:text-[30px] text-[22px] line-clamp-4">
-            {titles[current]}
+        <div className="absolute top-2/3 min-w-[300px] min-h-[108px] md:ml-7 max-w-[540px]  pl-3 py-2 bg-black bg-opacity-60 rounded-lg ">
+          <p className="text-wrap text-[#ffffff] font-extrabold lg:text-[30px] text-[22px] line-clamp-4 mx-auto">
+            {truncateText(titles[current], MAX_CHARS)}
           </p>
         </div>
         <button

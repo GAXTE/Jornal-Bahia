@@ -36,12 +36,17 @@ export const LatestNews = ({ posts }: IProps) => {
                     alt={"texto alternativo"}
                   />
                   <div className="flex flex-col gap-3">
-                    <strong className="label-mobile lg:label">{post.categories[0].name}</strong>
-                    <h3 className="tittle-2-mobile lg:tittle-2">{post.title}</h3>
+                    <strong className="label-mobile lg:label">
+                      {post.categories[0].name}
+                    </strong>
+                    <h3 className="tittle-2-mobile lg:tittle-2">
+                      {post.title}
+                    </h3>
                   </div>
                   <DateComponent data={post.createdAt} />
                 </li>
                 {(index + 1) % 3 === 0 && <PublicityBanner />}
+                <div className="h-1 lg:h-2"></div>
               </React.Fragment>
             );
           })}

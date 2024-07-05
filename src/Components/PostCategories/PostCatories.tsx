@@ -7,8 +7,16 @@ import { useNavigate } from "react-router-dom";
 export const PostCategories = () => {
   const { AllPosts } = usePostContext();
   const [uniqueCategoryPosts, setUniqueCategoryPosts] = useState<IPost[]>([]);
-  const [categoryFirstPost, setCategoryFirstPost] = useState<IPost | undefined>();
+  const [categoryFirstPost, setCategoryFirstPost] = useState<
+    IPost | undefined
+  >();
   const navi = useNavigate();
+
+  const MAX_CHARS = 80; // Exemplo: limite de 100 caracteres
+
+  function truncateText(text: string, maxChars: number): string {
+    return text?.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
+  }
 
   useEffect(() => {
     if (AllPosts) {
@@ -66,18 +74,26 @@ export const PostCategories = () => {
                     onClick={() => handlePostClick(post.id)}
                     className="cursor-pointer max-w-[full] max-h-[188px] rounded-lg object-cover"
                     src={post.photoUrls}
-                    alt={post.title}
+                    alt={truncateText(post.title, MAX_CHARS)}
                   />
-                  <h2 className="cursor-pointer tittle-2" onClick={() => handlePostClick(post.id)}>
+                  <h2
+                    className="cursor-pointer tittle-2"
+                    onClick={() => handlePostClick(post.id)}
+                  >
                     {post.title}
                   </h2>
                 </div>
               )}
               {index !== 0 && (
                 <div className="flex flex-col gap-[10px]">
-                  <strong className="label-mobile ">{post.categories[0].name}</strong>
-                  <h2 className=" cursor-pointer tittle-2-mobile" onClick={() => handlePostClick(post.id)}>
-                    {post.title}
+                  <strong className="label-mobile ">
+                    {post.categories[0].name}
+                  </strong>
+                  <h2
+                    className=" cursor-pointer tittle-2-mobile"
+                    onClick={() => handlePostClick(post.id)}
+                  >
+                    {truncateText(post.title, MAX_CHARS)}
                   </h2>
                 </div>
               )}
