@@ -21,7 +21,7 @@ export const ListPosts = ({ children, posts }: IProps) => {
     const paginated = pagination(posts, 3, page);
 
     setPaginatedView([...paginatedView, ...paginated]);
-  }, [page, posts]);
+  }, [posts, page]);
   const handlePostClick = (postId: string) => {
     navi(`/viewpost/${postId}`);
   };
@@ -37,7 +37,7 @@ export const ListPosts = ({ children, posts }: IProps) => {
             {children}
             <span className="opaque-text">{posts?.length} resultados</span>
           </div>
-          {paginatedView.map((post, index) => {
+          {posts?.map((post, index) => {
             idCount[post.id] = (idCount[post.id] || 0) + 1;
             const key = `${post.id}-${idCount[post.id]}`;
             return (
