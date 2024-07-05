@@ -4,11 +4,29 @@ import { ListOfCategories } from "../ListOfCategories/ListOfCategories";
 import { SocialMedia } from "../SocialMedia/SocialMedia";
 import close from "../../../assets/close.svg";
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
 export const HamburgerMenu = () => {
   const modalContentRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  // Dentro do seu componente, após a declaração do estado isModalOpen
+
+  useEffect(() => {
+    if (isModalOpen) {
+      // Impede o rolamento da página
+      document.body.style.overflow = "hidden";
+    } else {
+      // Permite o rolamento da página
+      document.body.style.overflow = "";
+    }
+
+    // Limpeza: Reverte para o estilo original quando o componente é desmontado
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isModalOpen]); // Dependências do efeito: reage às mudanças em isModalOpen
 
   const modalSocialMediaStyle: React.CSSProperties = {
     display: "inline-flex",
@@ -53,7 +71,7 @@ export const HamburgerMenu = () => {
               exit={{ opacity: 0, x: 50 }}
               ref={modalContentRef}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white  w-full flex flex-col  items-center overflow-y-auto  "
+              className="bg-white w-full flex flex-col  items-center overflow-y-auto  "
             >
               <button
                 className="self-end sticky top-2 mt-2 mr-7"

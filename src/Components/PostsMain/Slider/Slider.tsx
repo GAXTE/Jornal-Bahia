@@ -56,7 +56,7 @@ export const Slider = () => {
         </div>
         <button
           onClick={prevSlide}
-          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-400 text-white p-2 rounded-full mx-3"
+          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-400 text-white p-1  mx-3 bg-black bg-opacity-60 rounded-full"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -68,14 +68,14 @@ export const Slider = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="lucide lucide-chevron-left"
+            className="lucide lucide-chevron-left "
           >
             <path d="m15 18-6-6 6-6" />
           </svg>
         </button>
         <button
           onClick={nextSlide}
-          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-400 text-white p-2 rounded-full mx-3"
+          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-400 text-white p-1  mx-3 bg-black bg-opacity-60 rounded-full"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
