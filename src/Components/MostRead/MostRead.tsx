@@ -12,6 +12,10 @@ export const MostRead = () => {
   const handlePostClick = (postId: string) => {
     navi(`/viewpost/${postId}`);
   };
+
+  const handleCategoryClick = (categoryId: string) => {
+    navi(`/categories/${categoryId}`);
+  };
   return (
     <>
       <div className="flex flex-col w-full max-w-[600px] lg:max-w-[600px] ">
@@ -26,7 +30,12 @@ export const MostRead = () => {
                 alt={"texto alternativo"}
               />
               <div className="flex flex-col items-start gap-[12px]">
-                <strong className="label-mobile">{post.categories[0].name}</strong>
+                <strong
+                  className=" cursor-pointer label-mobile"
+                  onClick={() => handleCategoryClick(post.categories[0].id)}
+                >
+                  {post.categories[0].name}
+                </strong>
                 <h3 className=" cursor-pointer tittle-2-mobile" onClick={() => handlePostClick(post.id)}>
                   {post.title}
                 </h3>

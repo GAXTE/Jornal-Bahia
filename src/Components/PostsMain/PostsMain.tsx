@@ -31,6 +31,10 @@ export const PostsMain = () => {
   const handlePostClick = (postId: string) => {
     navi(`/viewpost/${postId}`);
   };
+  const handleCategoryClick = (categoryId: string) => {
+    navi(`/categories/${categoryId}`);
+  };
+
   return (
     <>
       <section className="mt-[16px] mx-auto flex flex-col lg:flex-row items-center  gap-[30px] lg:mt-[37px] lg:justify-between">
@@ -50,7 +54,12 @@ export const PostsMain = () => {
                   />
                 </div>
                 <div className="flex flex-col max-w-[263px] min-w-[200px] md:min-w-[500px] lg:min-w-[100px] lg:max-w-[263px]">
-                  <strong className=" label-mobile lg:label mb-2">{post.categories[0].name}</strong>
+                  <strong
+                    className="cursor-pointer label-mobile lg:label mb-2"
+                    onClick={() => handleCategoryClick(post.categories[0].id)}
+                  >
+                    {post.categories[0].name}
+                  </strong>
                   <h3
                     className="cursor-pointer tittle-3- overflow-auto whitespace-normal "
                     onClick={() => handlePostClick(post.id)}
