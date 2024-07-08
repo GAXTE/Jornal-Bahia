@@ -9,9 +9,11 @@ import { useEffect, useState } from "react";
 import { IPost } from "../../types/PostTypes";
 import animationData from "../../assets/Animation - 1718972246036.json";
 import Lottie from "react-lottie";
+import { LatestNews } from "../../Components/LatestNews/LatesteNews";
 
 export const PostViewPage = () => {
   const { getPostById } = usePostContext();
+  const { AllPosts } = usePostContext();
   const { postId } = useParams();
   const [post, setPost] = useState<IPost>();
   const [error, setError] = useState<boolean>(false);
@@ -21,6 +23,7 @@ export const PostViewPage = () => {
       setError(false);
       const fetchPost = async () => {
         try {
+          window.scrollTo(0, 0);
           const postDetails = await getPostById(postId);
           setPost(postDetails);
         } catch (error) {
@@ -54,6 +57,7 @@ export const PostViewPage = () => {
                 <span>Nenhum post Encontrado</span>
               </div>
             )}
+            <LatestNews posts={AllPosts!} />
           </div>
           {error ? null : <SocialMediaStick />}
         </div>

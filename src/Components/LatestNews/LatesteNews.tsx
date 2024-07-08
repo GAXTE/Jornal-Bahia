@@ -37,7 +37,7 @@ export const LatestNews = ({ posts }: IProps) => {
             const key = `${post.id}-${idCount[post.id]}`;
             return (
               <React.Fragment key={key}>
-                <li className="flex flex-col gap-[20px]">
+                <li className="flex flex-col lg:flex-row gap-[20px]">
                   <img
                     className="cursor-pointer max-w-[full] max-h-[188px] rounded-lg lg:max-w-[249px] lg:min-w-[249px] lg:max-h-[249px] lg:min-h-[249px] object-cover"
                     src={post.photoUrls[0]}
@@ -45,18 +45,20 @@ export const LatestNews = ({ posts }: IProps) => {
                     onClick={() => handlePostClick(post.id)}
                   />
                   <div className="flex flex-col gap-3">
-                    <strong className="label-mobile lg:label cursor-pointer"
+                    <strong
+                      className="label-mobile lg:label cursor-pointer"
                       onClick={() => handleCategoryClick(post.categories[0].id)}
-                     >
+                    >
                       {post.categories[0].name}
                     </strong>
-                    <h3 className="tittle-2-mobile lg:tittle-2 cursor-pointer" 
+                    <h3
+                      className="tittle-2-mobile lg:tittle-2 cursor-pointer"
                       onClick={() => handlePostClick(post.id)}
-                     >
+                    >
                       {post.title}
                     </h3>
+                    <DateComponent data={post.createdAt} />
                   </div>
-                  <DateComponent data={post.createdAt} />
                 </li>
                 {(index + 1) % 3 === 0 && <PublicityBanner />}
                 <div className="h-1 lg:h-2"></div>
