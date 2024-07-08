@@ -3,7 +3,7 @@ import WhatsIcon from "../../assets/WhatsAppColor.svg";
 import FaceIcon from "../../assets/FaceBookColor.svg";
 
 export const SocialMediaStick = () => {
-  const pageUrl = "https://jornal-bahia.vercel.app/";
+  const pageUrl = encodeURIComponent(window.location.href);
   const message =
     encodeURIComponent(
       "🌟 Últimas Notícias do Jornal da Bahia 🌟 \n Compartilhe essa notícia com seus amigos e fique por dentro dos acontecimentos mais importantes: \n \n"
