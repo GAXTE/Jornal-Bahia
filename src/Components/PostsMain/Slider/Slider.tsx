@@ -1,12 +1,20 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useCategoryContext } from "../../../Providers/category/CategoryContext";
+import { useNavigate } from "react-router-dom";
 
 export const Slider = () => {
   const [current, setCurrent] = useState(0);
   const { PostsMain } = useCategoryContext();
   const images = PostsMain.slice(-4).map((post) => post.photoUrls[0]);
   const titles = PostsMain.slice(-4).map((post) => post.title);
+  const id = PostsMain.slice(-4).map((post) => post.id);
+  const MAX_CHARS = 80;
+  let categorie = "";
+  const navi = useNavigate();
+  function truncateText(text: string, maxChars: number): string {
+    return text?.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
+  }
 
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % images.length);
@@ -21,8 +29,12 @@ export const Slider = () => {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  if (images.length === 0 || titles.length === 0) {
+  if (images.length !== 0 || titles.length !== 0) {
+    categorie = PostsMain[current].categories[0].id;
   }
+  const handleCategoryClick = (categoryId: string) => {
+    navi(`/viewpost/${categoryId}`);
+  };
   return (
     <div className="relative max-w-[600px] min-w-[320px]">
       <motion.div
@@ -39,19 +51,23 @@ export const Slider = () => {
           className="w-[637px] h-[499px] object-cover min-h-[463px] rounded-2xl"
         />
         <span
-          className="absolute top-[32px] left-[45px] label-category"
+          className="cursor-pointer absolute top-[12px] left-[45px] label-category"
           style={{ background: "var(--color-primary)" }}
+          onClick={() => navi(`/categories/${categorie}`)}
         >
           Principais
         </span>
-        <div className="absolute top-2/3 min-w-[320px] min-h-[108px] max-w-[540px] ml-[45px] mr-[52px]">
-          <p className="text-wrap text-[#ffffff] font-extrabold lg:text-[30px] text-[22px] line-clamp-4">
-            {titles[current]}
+        <div
+          className="cursor-pointer absolute top-2/3 min-w-[300px] min-h-[108px] md:ml-7 max-w-[540px]  pl-3 py-2 bg-black bg-opacity-60 rounded-lg "
+          onClick={() => handleCategoryClick(id[current])}
+        >
+          <p className="text-wrap text-[#ffffff] font-extrabold lg:text-[30px] text-[22px] line-clamp-4 mx-auto">
+            {truncateText(titles[current], MAX_CHARS)}
           </p>
         </div>
         <button
           onClick={prevSlide}
-          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-400 text-white p-2 rounded-full mx-3"
+          className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-400 text-white p-1  mx-3 bg-black bg-opacity-60 rounded-full"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -63,14 +79,14 @@ export const Slider = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="lucide lucide-chevron-left"
+            className="lucide lucide-chevron-left "
           >
             <path d="m15 18-6-6 6-6" />
           </svg>
         </button>
         <button
           onClick={nextSlide}
-          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-400 text-white p-2 rounded-full mx-3"
+          className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-400 text-white p-1  mx-3 bg-black bg-opacity-60 rounded-full"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

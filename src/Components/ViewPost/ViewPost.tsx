@@ -8,10 +8,9 @@ interface IViewPost {
 
 export const ViewPost = ({ post }: IViewPost) => {
   useEffect(() => {}, [post]);
-  console.log(post.categories);
   return (
     <>
-      <section className="max-w-[290px] lg:max-w-[620px] flex flex-col gap-3  ">
+      <section className="max-w-[290px] md:max-w-[620px] flex flex-col gap-3  ">
         <strong className="label-mobile lg:label">
           {post.categories[0].name}
         </strong>

@@ -14,15 +14,11 @@ export const Publicities: React.FC = () => {
 
     if (currentAd.imageUrl.length > 0) {
       timer = setTimeout(() => {
-        setCurrentIndex(
-          (prevIndex) => (prevIndex + 1) % publicityOthers.length
-        );
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % publicityOthers.length);
       }, 8000);
     } else if (currentAd.videoUrl.length > 0 && videoRef.current) {
       const handleEnded = () => {
-        setCurrentIndex(
-          (prevIndex) => (prevIndex + 1) % publicityOthers.length
-        );
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % publicityOthers.length);
       };
 
       videoRef.current.addEventListener("ended", handleEnded);
@@ -44,9 +40,7 @@ export const Publicities: React.FC = () => {
       videoRef.current.load();
       videoRef.current.play().catch((error) => {
         console.error("Error playing video:", error);
-        setCurrentIndex(
-          (prevIndex) => (prevIndex + 1) % publicityOthers.length
-        );
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % publicityOthers.length);
       });
     }
   }, [currentIndex]);
@@ -56,21 +50,21 @@ export const Publicities: React.FC = () => {
 
     if (currentAd.imageUrl.length > 0) {
       return (
-        <img
-          src={currentAd.imageUrl[0]}
-          alt="Anuncio"
-          className="w-full h-full object-cover"
-        />
+        <a href={currentAd.link} target="_blank">
+          <img src={currentAd.imageUrl[0]} alt="Anuncio" className="w-full h-full object-cover lg:mt-8" />
+        </a>
       );
     } else if (currentAd.videoUrl.length > 0) {
       return (
-        <video
-          key={currentAd.id}
-          src={currentAd.videoUrl[0]}
-          ref={videoRef}
-          autoPlay
-          className="w-full h-full object-cover"
-        />
+        <a href={currentAd.link} target="_blank">
+          <video
+            key={currentAd.id}
+            src={currentAd.videoUrl[0]}
+            ref={videoRef}
+            autoPlay
+            className="w-full h-full object-cover lg:mt-8"
+          />
+        </a>
       );
     }
 
@@ -78,10 +72,8 @@ export const Publicities: React.FC = () => {
   };
 
   return (
-    <div className="flex md:w-[348px] lg:w-[348px] h-[261px] lg:sticky lg:top-12">
-      <div className="w-full h-full">
-        {publicityOthers.length > 0 && renderAd()}
-      </div>
+    <div className="flex max-h-[680px] md:w-[348px] lg:w-[348px]  lg:sticky lg:top-28 mb-6 ">
+      <div className="w-full h-full">{publicityOthers.length > 0 && renderAd()}</div>
     </div>
   );
 };

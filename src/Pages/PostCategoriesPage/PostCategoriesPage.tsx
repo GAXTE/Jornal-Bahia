@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Header } from "../../Components/Header/Header";
 import { ListPosts } from "../../Components/ListPosts/ListPosts";
@@ -9,14 +10,21 @@ import { Footer } from "../../Components/Footer/Footer";
 export const PostCategoriesPage = () => {
   const { AllPosts } = usePostContext();
   const { categorieId } = useParams();
-  let posts: IPost[] = [];
-  if (AllPosts) {
-    posts = AllPosts!.filter((post) => post.categories[0].id === categorieId);
-  }
+  const [posts, setPosts] = useState<IPost[]>([]);
+
+  useEffect(() => {
+    if (AllPosts) {
+      const filteredPosts = AllPosts.filter((post) => post.categories[0].id === categorieId);
+      setPosts(filteredPosts);
+    }
+  }, [categorieId, AllPosts]);
+
+  console.log(posts);
+
   return (
     <>
       <Header />
-      <main className="container ">
+      <main className="container">
         <PublicityBanner />
         <ListPosts posts={posts}>
           <p>Categoria 1</p>

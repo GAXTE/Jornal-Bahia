@@ -9,12 +9,9 @@ export const RouterMain = () => {
     <>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route
-          path="/categories/:categorieId"
-          element={<PostCategoriesPage />}
-        />
+        <Route path="/categories/:categorieId" element={<PostCategoriesPage />} />
         <Route path="/search/:searchPost" element={<SearchPage />} />
-        <Route path="/viewpage" element={<PostViewPage />} />
+        <Route path="/viewpost/:postId" element={<PostViewPage />} />
       </Routes>
     </>
   );

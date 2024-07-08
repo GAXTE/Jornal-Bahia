@@ -20,7 +20,7 @@ export const Homepage = () => {
           <MostRead />
           <PostCategories />
         </section>
-        <section className="flex flex-col-reverse gap-7 md:items-center lg:items-start lg:flex-row lg:justify-between lg:relative">
+        <section className="flex flex-col-reverse gap-7 md:items-center lg:items-start lg:flex-row lg:justify-between  lg:relative">
           <LatestNews posts={AllPosts!} />
           <Publicities />
         </section>

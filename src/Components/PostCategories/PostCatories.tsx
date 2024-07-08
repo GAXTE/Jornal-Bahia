@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { usePostContext } from "../../Providers/post/PostContext";
 import { IPost } from "../../types/PostTypes";
 import { DateComponent } from "../Date/Date";
+import { useNavigate } from "react-router-dom";
 
 export const PostCategories = () => {
   const { AllPosts } = usePostContext();
@@ -9,6 +10,13 @@ export const PostCategories = () => {
   const [categoryFirstPost, setCategoryFirstPost] = useState<
     IPost | undefined
   >();
+  const navi = useNavigate();
+
+  const MAX_CHARS = 80; // Exemplo: limite de 100 caracteres
+
+  function truncateText(text: string, maxChars: number): string {
+    return text?.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
+  }
 
   useEffect(() => {
     if (AllPosts) {
@@ -33,7 +41,6 @@ export const PostCategories = () => {
 
     return Object.values(uniqueCategoriesMap);
   };
-  console.log(categoryFirstPost);
 
   const shuffleArray = (array: any[]): any[] => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -45,10 +52,21 @@ export const PostCategories = () => {
 
   if (!AllPosts) return null;
 
+  const handlePostClick = (postId: string) => {
+    navi(`/viewpost/${postId}`);
+  };
+
+  const handleCategoryClick = (categoryId: string | undefined) => {
+    navi(`/categories/${categoryId}`);
+  };
+
   return (
     <div className="flex-col">
       <ul className="flex flex-col  gap-[13px] max-w-[600px] lg:max-w-[348px]">
-        <button className="self-start h-[33px] lg:h-[39px] w-[97px] lg:w-[120px] bg- rounded label-category ">
+        <button
+          className="self-start h-[33px] bg-primary lg:h-[39px] w-[97px] lg:w-[120px] bg- rounded label-category "
+          onClick={() => handleCategoryClick(categoryFirstPost?.categories[0].id)}
+        >
           {categoryFirstPost?.categories[0].name}
         </button>
         {uniqueCategoryPosts.map((post, index) => (
@@ -61,17 +79,32 @@ export const PostCategories = () => {
               {index === 0 && (
                 <div className="flex flex-col gap-6">
                   <img
-                    className="max-w-[full] max-h-[188px] rounded-lg object-cover"
+                    onClick={() => handlePostClick(post.id)}
+                    className="cursor-pointer max-w-[full] max-h-[188px] rounded-lg object-cover"
                     src={post.photoUrls}
-                    alt={post.title}
+                    alt={truncateText(post.title, MAX_CHARS)}
                   />
-                  <h2 className="tittle-2">{post.title}</h2>
+                  <h2
+                    className="cursor-pointer tittle-2"
+                    onClick={() => handlePostClick(post.id)}
+                  >
+                    {post.title}
+                  </h2>
                 </div>
               )}
               {index !== 0 && (
                 <div className="flex flex-col gap-[10px]">
-                  <strong className="label-mobile ">{post.categories[0].name}</strong>
-                  <h2 className="tittle-2-mobile">{post.title}</h2>
+                  <strong className="label-mobile  cursor-pointer"
+                          onClick={() => handleCategoryClick(post.categories[0].id)}
+                   >
+                    {post.categories[0].name}
+                  </strong>
+                  <h2
+                    className=" cursor-pointer tittle-2-mobile"
+                    onClick={() => handlePostClick(post.id)}
+                  >
+                    {truncateText(post.title, MAX_CHARS)}
+                  </h2>
                 </div>
               )}
               <DateComponent data={post.createdAt} />
