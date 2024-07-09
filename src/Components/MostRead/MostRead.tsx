@@ -23,11 +23,11 @@ export const MostRead = () => {
   }
   return (
     <>
-      <div className="flex flex-col w-full max-w-[600px] lg:max-w-[600px] ">
+      <div className="flex flex-col min-h-full w-full max-w-[600px] lg:max-w-[600px]  ">
         <h2 className="mb-[18px] tittle-1-mobile lg:title-1 lg:mb-[26px]">
           Mais lidos
         </h2>
-        <ul className="flex flex-col gap-[25px] mb-12 ">
+        <ul className="flex flex-col gap-[35px] lg:gap-[55px] h-full">
           {postMostState.slice(0, 3).map((post) => (
             <li
               key={post.id}
@@ -40,7 +40,10 @@ export const MostRead = () => {
                 alt={"texto alternativo"}
               />
               <div className="flex flex-col items-start gap-[12px]">
-                <strong className="label-mobile  cursor-pointer" onClick={() => handleCategoryClick(post.categories[0].id)}>
+                <strong
+                  className="label-mobile  cursor-pointer"
+                  onClick={() => handleCategoryClick(post.categories[0].id)}
+                >
                   {post.categories[0].name}
                 </strong>
                 <h3
