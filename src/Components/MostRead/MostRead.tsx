@@ -23,7 +23,7 @@ export const MostRead = () => {
   }
   return (
     <>
-      <div className="flex flex-col min-h-full w-full max-w-[600px] lg:max-w-[600px]  ">
+      <div className="flex flex-col min-h-full w-full max-w-[600px] lg:max-w-[600px] mb-8  ">
         <h2 className="mb-[18px] tittle-1-mobile lg:title-1 lg:mb-[26px]">
           Mais lidos
         </h2>
