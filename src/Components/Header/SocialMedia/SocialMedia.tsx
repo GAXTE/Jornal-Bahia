@@ -15,9 +15,26 @@ export const SocialMedia = ({ style }: ISocialMedia) => {
         style={style}
         className="min-w-[103px] min-h-[25px] justify-between items-center hidden lg:flex"
       >
-        <img className=" h-[25px] cursor-pointer" src={x} alt="instagram" />
-        <img className=" h-[25px]  cursor-pointer" src={insta} alt="whatsapp" />
-        <img className=" h-[25px]  cursor-pointer" src={face} alt="x" />
+        <a
+          href="https://x.com/jornaldabahia01?t=rnDshPoVgRn7b5WA-VRL8A&s=09"
+          target="_blank"
+        >
+          <img className=" h-[25px] cursor-pointer" src={x} alt="X" />
+        </a>
+        <a href="https://www.instagram.com/jornaldabahia.ba/" target="_blank">
+          <img
+            className=" h-[25px]  cursor-pointer"
+            src={insta}
+            alt="instagram"
+          />
+        </a>
+        <a href="" target="_blank">
+          <img
+            className=" h-[25px]  cursor-pointer"
+            src={face}
+            alt="FaceBook"
+          />
+        </a>
       </div>
     </>
   );
