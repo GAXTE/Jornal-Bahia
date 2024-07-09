@@ -70,7 +70,7 @@ export const ListOfCategories = ({
         >
           {categories.map((category) => (
             <li
-              className="cursor-pointer"
+              className="cursor-pointer border-b-2 border-white hover:border-b-2 hover:border-black "
               style={{ color: category.color }}
               key={category.id}
               onClick={() => handleCategoryClick(category.id)}
