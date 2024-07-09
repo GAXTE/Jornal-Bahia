@@ -32,7 +32,7 @@ export const ListOfCategories = ({
     {
       name: "Entretenimento",
       id: "c2a0194e-9ccb-4c48-8314-9cfb576ab745",
-      color: "",
+      color: "#EB5B00",
     },
     { name: "Turismo", id: "5254340e-8934-4839-aa07-52aba0a4f7f3", color: "" },
     { name: "Salvador", id: "7a45a066-1270-4c38-9adf-476bb6a150e2", color: "" },
@@ -43,7 +43,11 @@ export const ListOfCategories = ({
       id: "adb30b70-de63-4724-86d8-d2d80d2b6cda",
       color: "",
     },
-    { name: "Bahia", id: "747b19d9-ec5b-43b8-a3b7-8ac83da1f870", color: "" },
+    {
+      name: "Bahia",
+      id: "747b19d9-ec5b-43b8-a3b7-8ac83da1f870",
+      color: "#4086e1",
+    },
     {
       name: "Eleições 2024",
       id: "176845d4-80ed-4390-bce1-a0d5cf99a662",
