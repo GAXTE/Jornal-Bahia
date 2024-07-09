@@ -52,7 +52,7 @@ export const PostViewPage = () => {
           <div className="flex flex-col gap-8">
             {post && <ViewPost post={post} />}
             {error && (
-              <div className="py-[100px]">
+              <div className="py-[100px] flex flex-col items-center tittle-2">
                 <Lottie options={defaultOptions} />
                 <span>Nenhum post Encontrado</span>
               </div>

@@ -1,5 +1,6 @@
 import Lottie from "react-lottie";
 import animationData from "../../assets/404Page.json";
+import { useNavigate } from "react-router-dom";
 export const PageNotFound = () => {
   const defaultOptions = {
     loop: true,
@@ -9,6 +10,8 @@ export const PageNotFound = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+
+  const nav = useNavigate();
   return (
     <main className="container h-screen  justify-center flex  flex-col items-center">
       <div>
@@ -18,7 +21,10 @@ export const PageNotFound = () => {
         <h1 className="my-2 text-gray-800 font-bold text-2xl">
           Pagina não Encontrada
         </h1>
-        <button className="sm:w-full lg:w-auto my-2 border-2 rounded md py-4 px-8 text-center  text-black hover:border-primary hover:text-primary ">
+        <button
+          onClick={() => nav("/")}
+          className="sm:w-full lg:w-auto my-2 border-2 rounded md py-4 px-8 text-center  text-black hover:border-primary hover:text-primary "
+        >
           Retorne a pagina inicial
         </button>
       </div>
