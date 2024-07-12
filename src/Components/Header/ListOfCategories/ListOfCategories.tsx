@@ -75,12 +75,12 @@ export const ListOfCategories = ({
         style={style}
       >
         <ul
-          className="menu-text text-nowrap hidden lg:flex gap-[23px] lg:justify-center w-full justify-between font-primaryFont text-16px font-medium"
+          className="menu-text text-nowrap hidden lg:flex gap-[23px] lg:justify-center w-full justify-between font-primaryFont  font-medium"
           style={style}
         >
           {categories.map((category) => (
             <li
-              className="cursor-pointer border-b-2 border-white hover:border-b-2 hover:border-black "
+              className="cursor-pointer border-b-2 border-white hover:border-b-2 hover:border-black  "
               style={{ color: category.color }}
               key={category.id}
               onClick={() => handleCategoryClick(category.id)}
