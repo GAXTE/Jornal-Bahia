@@ -22,10 +22,11 @@ export const MostRead = () => {
     return text?.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
   }
   return (
-    <>
-      <div className="flex flex-col w-full max-w-[600px] lg:max-w-[600px] ">
-        <h2 className="mb-[18px] tittle-1-mobile lg:title-1 lg:mb-[26px]">Mais lidos</h2>
-        <ul className="flex flex-col gap-[25px] mb-12 ">
+      <div className="flex flex-col min-h-full w-full max-w-[600px] lg:max-w-[600px] mb-8  ">
+        <h2 className="mb-[18px] tittle-1-mobile lg:title-1 lg:mb-[26px]">
+          Mais lidos
+        </h2>
+        <ul className="flex flex-col gap-[35px] lg:gap-[55px] h-full">
           {postMostState.slice(0, 3).map((post) => (
             <li key={post.id} className="flex flex-col lg:flex-row gap-[20px] lg:gap-[41px]  lg:items-center">
               <img

@@ -79,7 +79,11 @@ export const HamburgerMenu = () => {
               >
                 <img src={close} alt="close button" />
               </button>
-              <ListOfCategories style={modalListStyle} />
+              <ListOfCategories
+                style={modalListStyle}
+                setIsModalOpen={setIsModalOpen}
+                isModalOpen={isModalOpen}
+              />
               <SocialMedia style={modalSocialMediaStyle} />
             </motion.div>
           </div>

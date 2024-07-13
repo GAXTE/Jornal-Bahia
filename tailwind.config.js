@@ -103,7 +103,7 @@ export default {
         },
         ".menu-text": {
           fontFamily: "var(--font-primary)",
-          fontSize: "16px",
+          fontSize: "20px",
           color: "var(--color-black)",
           fontWeight: "600",
           lineHeight: "19.05px",
