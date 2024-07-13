@@ -97,7 +97,6 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
 
   const pagination = (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number): IPost[] => {
     --pageNumber;
-    --pageNumber;
     if (!obj) return [];
     return obj.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
   };
