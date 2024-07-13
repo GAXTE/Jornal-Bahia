@@ -19,15 +19,13 @@ export const PostCategoriesPage = () => {
     }
   }, [categorieId, AllPosts]);
 
-  console.log(posts);
-
   return (
     <>
       <Header />
       <main className="container">
         <PublicityBanner />
         <ListPosts posts={posts}>
-          <p>Categoria 1</p>
+          <p>Categoria: {posts[0]?.categories[0].name}</p>
         </ListPosts>
       </main>
       <Footer />
