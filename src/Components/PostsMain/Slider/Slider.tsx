@@ -50,11 +50,7 @@ export const Slider = () => {
         transition={{ duration: 2 }}
         className="max-w-[600px] min-w-[320px] w-full"
       >
-        <img
-          src={images[current]}
-          alt="slide"
-          className="w-[637px] h-[499px] object-cover min-h-[463px] rounded-2xl"
-        />
+        <img src={images[current]} className="w-[637px] h-[499px] object-cover min-h-[463px] rounded-2xl" />
         <span
           className="cursor-pointer absolute top-[12px] left-[45px] label-category"
           style={{ background: "var(--color-primary)" }}
