@@ -6,12 +6,16 @@ import { useNavigate } from "react-router-dom";
 export const Slider = () => {
   const [current, setCurrent] = useState(0);
   const { PostsMain } = useCategoryContext();
-  const images = PostsMain.slice(-4).map((post) => post.photoUrls[0]);
-  const titles = PostsMain.slice(-4).map((post) => post.title);
-  const id = PostsMain.slice(-4).map((post) => post.id);
+  const sortedPostsMain = [...PostsMain].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+  const images = sortedPostsMain.slice(0, 5).map((post) => post.photoUrls[0]);
+  const titles = sortedPostsMain.slice(0, 5).map((post) => post.title);
+  const id = sortedPostsMain.slice(0, 5).map((post) => post.id);
   const MAX_CHARS = 80;
   let categorie = "";
   const navi = useNavigate();
+
   function truncateText(text: string, maxChars: number): string {
     return text?.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
   }
@@ -30,8 +34,9 @@ export const Slider = () => {
   }, [images.length]);
 
   if (images.length !== 0 || titles.length !== 0) {
-    categorie = PostsMain[current].categories[0].id;
+    categorie = sortedPostsMain[current].categories[0].id;
   }
+
   const handleCategoryClick = (categoryId: string) => {
     navi(`/viewpost/${categoryId}`);
   };
