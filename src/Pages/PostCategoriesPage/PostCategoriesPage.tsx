@@ -25,7 +25,7 @@ export const PostCategoriesPage = () => {
       <main className="container">
         <PublicityBanner />
         <ListPosts posts={posts}>
-          <p>Categoria: {posts[0]?.categories[0].name}</p>
+          <></>
         </ListPosts>
       </main>
       <Footer />
