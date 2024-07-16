@@ -24,7 +24,9 @@ export const PostCategoriesPage = () => {
       <Header />
       <main className="container">
         <PublicityBanner />
-        <ListPosts posts={posts}>{""}</ListPosts>
+        <ListPosts posts={posts}>
+          <></>
+        </ListPosts>
       </main>
       <Footer />
     </>
