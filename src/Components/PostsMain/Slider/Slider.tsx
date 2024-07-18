@@ -9,9 +9,9 @@ export const Slider = () => {
   const sortedPostsMain = [...PostsMain].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
-  const images = sortedPostsMain.slice(0, 5).map((post) => post.photoUrls[0]);
-  const titles = sortedPostsMain.slice(0, 5).map((post) => post.title);
-  const id = sortedPostsMain.slice(0, 5).map((post) => post.id);
+  const images = sortedPostsMain.slice(0, 6).map((post) => post.photoUrls[0]);
+  const titles = sortedPostsMain.slice(0, 6).map((post) => post.title);
+  const id = sortedPostsMain.slice(0, 6).map((post) => post.id);
   const MAX_CHARS = 80;
   let categorie = "";
   const navi = useNavigate();
