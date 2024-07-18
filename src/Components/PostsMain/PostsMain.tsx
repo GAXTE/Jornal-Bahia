@@ -11,14 +11,16 @@ export const PostsMain = () => {
   const navi = useNavigate();
   useEffect(() => {
     const getPosts = async () => {
-      const posts1 = await getAllPostByCategory(ListAllCategories[0].id);
+      const posts1 = await getAllPostByCategory(ListAllCategories[12].id);
       const posts2 = await getAllPostByCategory(ListAllCategories[6].id);
-      const posts3 = await getAllPostByCategory(ListAllCategories[14].id);
+      const posts3 = await getAllPostByCategory(ListAllCategories[5].id);
+      posts1.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      posts2.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      posts3.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-      const post1 = posts1[posts1.length - 1];
-      const post2 = posts2[posts2.length - 1];
-      const post3 = posts3[posts3.length - 1];
-
+      const post1 = posts1[0];
+      const post2 = posts2[0];
+      const post3 = posts3[0];
       const newPosts = [];
       if (post1) newPosts.push(post1);
       if (post2) newPosts.push(post2);
@@ -40,7 +42,6 @@ export const PostsMain = () => {
   function truncateText(text: string, maxChars: number): string {
     return text.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
   }
-
   return (
     <>
       <section className="mt-[16px] mx-auto flex flex-col lg:flex-row md:items-center  lg:items-stretch  gap-[30px] lg:mt-[37px] lg:justify-between">
