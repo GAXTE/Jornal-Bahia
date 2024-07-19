@@ -7,15 +7,11 @@ interface IListOfCategories {
   isModalOpen: boolean;
 }
 
-export const ListOfCategories = ({
-  style,
-  setIsModalOpen,
-  isModalOpen,
-}: IListOfCategories) => {
+export const ListOfCategories = ({ style, setIsModalOpen, isModalOpen }: IListOfCategories) => {
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const navi = useNavigate();
   const categories = [
-    { name: "Politica", id: "5064e3f6-c20e-4eff-9fc8-f7c1355e1453", color: "" },
+    { name: "Política", id: "5064e3f6-c20e-4eff-9fc8-f7c1355e1453", color: "" },
     {
       name: "Saúde",
       id: "2c209f4d-3712-4ac3-988a-1dd3b806aab2",
@@ -63,6 +59,11 @@ export const ListOfCategories = ({
     //   id: "176845d4-80ed-4390-bce1-a0d5cf99a662",
     //   color: "",
     // },
+    {
+      name: "Polícia",
+      id: "3097e019-2d67-4a21-b89e-e90133a82f3a",
+      color: "",
+    },
   ];
   const handleCategoryClick = (categoryId: string) => {
     navi(`/categories/${categoryId}`);
@@ -70,10 +71,7 @@ export const ListOfCategories = ({
   };
   return (
     <>
-      <div
-        className="container hidden lg:flex  min-h-[52px] items-center "
-        style={style}
-      >
+      <div className="container hidden lg:flex  min-h-[52px] items-center " style={style}>
         <ul
           className="menu-text text-nowrap hidden lg:flex gap-[23px]  w-full justify-between font-primaryFont  font-medium"
           style={style}
