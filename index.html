@@ -17,19 +17,24 @@
       document.addEventListener("DOMContentLoaded", function () {
         const shareData = JSON.parse(localStorage.getItem("share"));
         if (shareData) {
-          const ogTitle = document.querySelector('meta[property="og:title"]');
-          if (ogTitle) ogTitle.setAttribute("content", shareData.title);
+          if (shareData.title) {
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute("content", shareData.title);
+          }
 
-          const ogDescription = document.querySelector('meta[property="og:description"]');
-          if (ogDescription)
-            ogDescription.setAttribute(
-              "content",
-              shareData.content.replace(/<[^>]*>?/gm, "").substring(0, 200)
-            );
+          if (shareData.content) {
+            const ogDescription = document.querySelector('meta[property="og:description"]');
+            if (ogDescription)
+              ogDescription.setAttribute(
+                "content",
+                shareData.content.replace(/<[^>]*>?/gm, "").substring(0, 200)
+              );
+          }
 
-          const ogImage = document.querySelector('meta[property="og:image"]');
-          if (ogImage && shareData.photoUrls.length > 0)
-            ogImage.setAttribute("content", shareData.photoUrls[0]);
+          if (shareData.photoUrls && shareData.photoUrls.length > 0) {
+            const ogImage = document.querySelector('meta[property="og:image"]');
+            if (ogImage) ogImage.setAttribute("content", shareData.photoUrls[0]);
+          }
 
           const ogUrl = document.querySelector('meta[property="og:url"]');
           if (ogUrl) ogUrl.setAttribute("content", window.location.href);

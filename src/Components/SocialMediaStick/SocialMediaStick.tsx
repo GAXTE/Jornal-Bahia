@@ -27,7 +27,6 @@ export const SocialMediaStick = ({ title, imageUrl }: Props) => {
   };
 
   const shareOnFacebook = () => {
-    // Fornecer um valor padrão para imageUrl caso seja undefined
     const safeImageUrl = imageUrl || "";
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&picture=${encodeURIComponent(
       safeImageUrl
