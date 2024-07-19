@@ -59,7 +59,7 @@ export const PostViewPage = () => {
             )}
             <LatestNews posts={AllPosts!} />
           </div>
-          {error ? null : <SocialMediaStick title={post?.title} imageUrl={post?.photoUrls[0]} />}
+          {error ? null : <SocialMediaStick />}
         </div>
       </main>
       <Footer />
