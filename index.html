@@ -4,10 +4,36 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="src/assets/LogoBa.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:url" content="URL_DA_PÁGINA" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TÍTULO_DA_PÁGINA" />
+    <meta property="og:description" content="DESCRIÇÃO_DA_PÁGINA" />
+    <meta property="og:image" content="URL_DA_IMAGEM_DE_THUMBNAIL" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
     </style>
     <title>Jornal da Bahia</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const shareData = JSON.parse(localStorage.getItem("share"));
+        if (shareData) {
+          const ogTitle = document.querySelector('meta[property="og:title"]');
+          if (ogTitle) ogTitle.setAttribute("content", shareData.title);
+          const ogDescription = document.querySelector('meta[property="og:description"]');
+          if (ogDescription)
+            ogDescription.setAttribute(
+              "content",
+              shareData.content.replace(/<[^>]*>?/gm, "").substring(0, 200)
+            );
+
+          const ogImage = document.querySelector('meta[property="og:image"]');
+          if (ogImage && shareData.photoUrls.length > 0)
+            ogImage.setAttribute("content", shareData.photoUrls[0]);
+          const ogUrl = document.querySelector('meta[property="og:url"]');
+          if (ogUrl) ogUrl.setAttribute("content", window.location.href);
+        }
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

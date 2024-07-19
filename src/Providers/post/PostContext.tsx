@@ -77,6 +77,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
   const getPostById = async (id: string) => {
     try {
       const { data } = await Api.get(`/post/${id}`);
+      localStorage.setItem("share", JSON.stringify(data));
       return data;
     } catch (error) {
       throw error;
