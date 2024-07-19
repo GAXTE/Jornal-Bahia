@@ -9,6 +9,7 @@ interface Props {
 
 export const SocialMediaStick = ({ title, imageUrl }: Props) => {
   const pageUrl = encodeURIComponent(window.location.href);
+
   const message =
     encodeURIComponent(
       `🌟 Últimas Notícias do Jornal da Bahia 🌟 \n ${title} \n Compartilhe essa notícia com seus amigos e fique por dentro dos acontecimentos mais importantes: \n \n`
@@ -16,17 +17,48 @@ export const SocialMediaStick = ({ title, imageUrl }: Props) => {
     " " +
     pageUrl;
 
+  const updateMetaTags = () => {
+    const shareDataRaw = localStorage.getItem("share");
+    const shareData = shareDataRaw ? JSON.parse(shareDataRaw) : null;
+    if (shareData) {
+      if (shareData.title) {
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute("content", shareData.title);
+      }
+
+      if (shareData.content) {
+        const ogDescription = document.querySelector('meta[property="og:description"]');
+        if (ogDescription)
+          ogDescription.setAttribute(
+            "content",
+            shareData.content.replace(/<[^>]*>?/gm, "").substring(0, 200)
+          );
+      }
+
+      if (shareData.photoUrls && shareData.photoUrls.length > 0) {
+        const ogImage = document.querySelector('meta[property="og:image"]');
+        if (ogImage) ogImage.setAttribute("content", shareData.photoUrls[0]);
+      }
+
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute("content", window.location.href);
+    }
+  };
+
   const shareOnWhatsApp = () => {
+    updateMetaTags();
     const whatsappUrl = `https://wa.me/?text=${message}`;
     window.open(whatsappUrl, "_blank");
   };
 
   const shareOnX = () => {
+    updateMetaTags();
     const twitterUrl = `https://twitter.com/intent/tweet?text=${message}&url=${pageUrl}&hashtags=Notícias,JornalDaBahia&via=JornalDaBahia`;
     window.open(twitterUrl, "_blank");
   };
 
   const shareOnFacebook = () => {
+    updateMetaTags();
     const safeImageUrl = imageUrl || "";
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&picture=${encodeURIComponent(
       safeImageUrl

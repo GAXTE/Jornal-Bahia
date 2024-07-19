@@ -14,8 +14,8 @@
     </style>
     <title>Jornal da Bahia</title>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const shareData = JSON.parse(localStorage.getItem("share"));
+      // Função para atualizar os metadados da página
+      function updateMetaTags(shareData) {
         if (shareData) {
           if (shareData.title) {
             const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -39,6 +39,11 @@
           const ogUrl = document.querySelector('meta[property="og:url"]');
           if (ogUrl) ogUrl.setAttribute("content", window.location.href);
         }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const shareData = JSON.parse(localStorage.getItem("share"));
+        updateMetaTags(shareData);
       });
     </script>
   </head>
