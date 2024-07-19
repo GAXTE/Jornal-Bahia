@@ -19,6 +19,7 @@
         if (shareData) {
           const ogTitle = document.querySelector('meta[property="og:title"]');
           if (ogTitle) ogTitle.setAttribute("content", shareData.title);
+
           const ogDescription = document.querySelector('meta[property="og:description"]');
           if (ogDescription)
             ogDescription.setAttribute(
@@ -29,6 +30,7 @@
           const ogImage = document.querySelector('meta[property="og:image"]');
           if (ogImage && shareData.photoUrls.length > 0)
             ogImage.setAttribute("content", shareData.photoUrls[0]);
+
           const ogUrl = document.querySelector('meta[property="og:url"]');
           if (ogUrl) ogUrl.setAttribute("content", window.location.href);
         }
