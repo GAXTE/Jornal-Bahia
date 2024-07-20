@@ -28,6 +28,7 @@ export const PostViewPage = () => {
           const postDetails = await getPostById(postId);
           setPost(postDetails);
           document.title = postDetails?.title || "Post View";
+
           const faviconLink = document.querySelector("link[rel~='icon']");
           if (faviconLink) {
             (faviconLink as HTMLLinkElement).href = postDetails?.photoUrls[0] || "";
@@ -37,7 +38,13 @@ export const PostViewPage = () => {
             newFavicon.href = postDetails?.photoUrls[0] || "";
             document.head.appendChild(newFavicon);
           }
-          document.title = postDetails?.title || "Post View";
+
+          // Atualize os metadados antes de abrir a página
+          const meta = {
+            title: postDetails?.title,
+            imageUrl: postDetails?.photoUrls[0],
+          };
+          updateMetaTags(meta);
         } catch (error) {
           setError(true);
         }
@@ -45,14 +52,6 @@ export const PostViewPage = () => {
       fetchPost();
     }
   }, [postId, getPostById]);
-
-  useEffect(() => {
-    const meta = {
-      title: post?.title,
-      imageUrl: post?.photoUrls[0],
-    };
-    updateMetaTags(meta);
-  });
 
   const defaultOptions = {
     loop: true,
