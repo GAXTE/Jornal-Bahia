@@ -10,6 +10,7 @@ import { IPost } from "../../types/PostTypes";
 import animationData from "../../assets/Animation - 1718972246036.json";
 import Lottie from "react-lottie";
 import { LatestNews } from "../../Components/LatestNews/LatesteNews";
+import { updateMetaTags } from "../../utils/updatedMeta";
 
 export const PostViewPage = () => {
   const { getPostById } = usePostContext();
@@ -27,6 +28,7 @@ export const PostViewPage = () => {
           const postDetails = await getPostById(postId);
           setPost(postDetails);
           document.title = postDetails?.title || "Post View";
+
           const faviconLink = document.querySelector("link[rel~='icon']");
           if (faviconLink) {
             (faviconLink as HTMLLinkElement).href = postDetails?.photoUrls[0] || "";
@@ -36,7 +38,13 @@ export const PostViewPage = () => {
             newFavicon.href = postDetails?.photoUrls[0] || "";
             document.head.appendChild(newFavicon);
           }
-          document.title = postDetails?.title || "Post View";
+
+          // Atualize os metadados antes de abrir a página
+          const meta = {
+            title: postDetails?.title,
+            imageUrl: postDetails?.photoUrls[0],
+          };
+          updateMetaTags(meta);
         } catch (error) {
           setError(true);
         }
@@ -70,7 +78,7 @@ export const PostViewPage = () => {
             )}
             <LatestNews posts={AllPosts!} />
           </div>
-          {error ? null : <SocialMediaStick imageUrl={post?.photoUrls[0]} title={post?.title} />}
+          {error ? null : <SocialMediaStick />}
         </div>
       </main>
       <Footer />
