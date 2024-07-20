@@ -26,6 +26,17 @@ export const PostViewPage = () => {
           window.scrollTo(0, 0);
           const postDetails = await getPostById(postId);
           setPost(postDetails);
+          document.title = postDetails?.title || "Post View";
+          const faviconLink = document.querySelector("link[rel~='icon']");
+          if (faviconLink) {
+            (faviconLink as HTMLLinkElement).href = postDetails?.photoUrls[0] || "";
+          } else {
+            const newFavicon = document.createElement("link");
+            newFavicon.rel = "icon";
+            newFavicon.href = postDetails?.photoUrls[0] || "";
+            document.head.appendChild(newFavicon);
+          }
+          document.title = postDetails?.title || "Post View";
         } catch (error) {
           setError(true);
         }

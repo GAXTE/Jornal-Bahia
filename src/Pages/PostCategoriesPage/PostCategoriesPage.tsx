@@ -6,7 +6,7 @@ import { PublicityBanner } from "../../Components/PublicityBanner/PublicityBanne
 import { usePostContext } from "../../Providers/post/PostContext";
 import { IPost } from "../../types/PostTypes";
 import { Footer } from "../../Components/Footer/Footer";
-
+import logo from "../../assets/LogoBa.png";
 export const PostCategoriesPage = () => {
   const { AllPosts } = usePostContext();
   const { categorieId } = useParams();
@@ -16,6 +16,19 @@ export const PostCategoriesPage = () => {
     if (AllPosts) {
       const filteredPosts = AllPosts.filter((post) => post.categories[0].id === categorieId);
       setPosts(filteredPosts);
+      const faviconLink = document.querySelector("link[rel~='icon']");
+      const logoUrl = logo;
+
+      if (faviconLink) {
+        (faviconLink as HTMLLinkElement).href = logoUrl;
+      } else {
+        const newFavicon = document.createElement("link");
+        newFavicon.rel = "icon";
+        newFavicon.href = logoUrl;
+        document.head.appendChild(newFavicon);
+      }
+
+      document.title = "Jornal da Bahia";
     }
   }, [categorieId, AllPosts]);
 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { LatestNews } from "../../Components/LatestNews/LatesteNews";
@@ -7,9 +8,25 @@ import { PostsMain } from "../../Components/PostsMain/PostsMain";
 import { Publicities } from "../../Components/Publicities/publicities";
 import { PublicityBanner } from "../../Components/PublicityBanner/PublicityBanner";
 import { usePostContext } from "../../Providers/post/PostContext";
+import logo from "../../assets/LogoBa.png";
 
 export const Homepage = () => {
   const { AllPosts } = usePostContext();
+  useEffect(() => {
+    const faviconLink = document.querySelector("link[rel~='icon']");
+    const logoUrl = logo;
+
+    if (faviconLink) {
+      (faviconLink as HTMLLinkElement).href = logoUrl;
+    } else {
+      const newFavicon = document.createElement("link");
+      newFavicon.rel = "icon";
+      newFavicon.href = logoUrl;
+      document.head.appendChild(newFavicon);
+    }
+
+    document.title = "Jornal da Bahia";
+  });
   return (
     <>
       <Header />
