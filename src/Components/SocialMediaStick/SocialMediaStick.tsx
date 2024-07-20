@@ -1,8 +1,11 @@
 import XIcon from "../../assets/XColor.svg";
 import WhatsIcon from "../../assets/WhatsAppColor.svg";
 import FaceIcon from "../../assets/FaceBookColor.svg";
-
-export const SocialMediaStick = () => {
+interface Props {
+  title?: string;
+  imageUrl?: string;
+}
+export const SocialMediaStick = ({ title, imageUrl }: Props) => {
   const pageUrl = encodeURIComponent(window.location.href);
   const message =
     encodeURIComponent(
@@ -14,6 +17,27 @@ export const SocialMediaStick = () => {
   const shareOnWhatsApp = () => {
     const whatsappUrl = `https://wa.me/?text=${message}`;
     window.open(whatsappUrl, "_blank");
+    function updateMetaTags({ title, imageUrl }: Props) {
+      const metaUrl = document.querySelector('meta[property="og:url"]');
+      if (metaUrl) {
+        metaUrl.setAttribute("content", window.location.href);
+        console.log(metaUrl);
+      }
+
+      const metaTitle = document.querySelector('meta[property="og:title"]');
+      if (metaTitle) {
+        if (title) metaTitle.setAttribute("content", title);
+        console.log(metaTitle);
+      }
+      const metaImage = document.querySelector('meta[property="og:image"]');
+      if (metaImage) {
+        if (imageUrl) metaImage.setAttribute("content", imageUrl);
+        console.log(metaImage);
+      }
+    }
+
+    // Exemplo de uso
+    updateMetaTags({ title, imageUrl });
   };
 
   const shareOnX = () => {
