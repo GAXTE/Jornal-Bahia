@@ -10,6 +10,7 @@ import { IPost } from "../../types/PostTypes";
 import animationData from "../../assets/Animation - 1718972246036.json";
 import Lottie from "react-lottie";
 import { LatestNews } from "../../Components/LatestNews/LatesteNews";
+import { updateMetaTags } from "../../utils/updatedMeta";
 
 export const PostViewPage = () => {
   const { getPostById } = usePostContext();
@@ -45,6 +46,14 @@ export const PostViewPage = () => {
     }
   }, [postId, getPostById]);
 
+  useEffect(() => {
+    const meta = {
+      title: post?.title,
+      imageUrl: post?.photoUrls[0],
+    };
+    updateMetaTags(meta);
+  });
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -70,7 +79,7 @@ export const PostViewPage = () => {
             )}
             <LatestNews posts={AllPosts!} />
           </div>
-          {error ? null : <SocialMediaStick imageUrl={post?.photoUrls[0]} title={post?.title} />}
+          {error ? null : <SocialMediaStick />}
         </div>
       </main>
       <Footer />
