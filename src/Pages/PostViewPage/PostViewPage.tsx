@@ -60,7 +60,9 @@ export const PostViewPage = () => {
       <Helmet>
         <title>{post?.title || "Post View"}</title>
         <meta property="og:title" content={post?.title || "Post View"} />
-        <meta property="og:image" content={post?.photoUrls[0] || ""} />
+        <meta property="og:image" content={post?.photoUrls[0] || "URL_da_imagem_padrao"} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
       </Helmet>
       <Header />
       <main className="container flex flex-col items-center mb-4">
