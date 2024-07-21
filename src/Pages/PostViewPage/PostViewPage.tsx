@@ -10,7 +10,7 @@ import { IPost } from "../../types/PostTypes";
 import animationData from "../../assets/Animation - 1718972246036.json";
 import Lottie from "react-lottie";
 import { LatestNews } from "../../Components/LatestNews/LatesteNews";
-import { updateMetaTags } from "../../utils/updatedMeta";
+import { Helmet } from "react-helmet";
 
 export const PostViewPage = () => {
   const { getPostById } = usePostContext();
@@ -38,13 +38,6 @@ export const PostViewPage = () => {
             newFavicon.href = postDetails?.photoUrls[0] || "";
             document.head.appendChild(newFavicon);
           }
-
-          // Atualize os metadados antes de abrir a página
-          const meta = {
-            title: postDetails?.title,
-            imageUrl: postDetails?.photoUrls[0],
-          };
-          updateMetaTags(meta);
         } catch (error) {
           setError(true);
         }
@@ -64,6 +57,11 @@ export const PostViewPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{post?.title || "Post View"}</title>
+        <meta property="og:title" content={post?.title || "Post View"} />
+        <meta property="og:image" content={post?.photoUrls[0] || ""} />
+      </Helmet>
       <Header />
       <main className="container flex flex-col items-center mb-4">
         {error ? null : <PublicityBanner />}
