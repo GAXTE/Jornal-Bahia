@@ -28,16 +28,6 @@ export const PostViewPage = () => {
           const postDetails = await getPostById(postId);
           setPost(postDetails);
           document.title = postDetails?.title || "Post View";
-
-          const faviconLink = document.querySelector("link[rel~='icon']");
-          if (faviconLink) {
-            (faviconLink as HTMLLinkElement).href = postDetails?.photoUrls[0] || "";
-          } else {
-            const newFavicon = document.createElement("link");
-            newFavicon.rel = "icon";
-            newFavicon.href = postDetails?.photoUrls[0] || "";
-            document.head.appendChild(newFavicon);
-          }
         } catch (error) {
           setError(true);
         }
@@ -60,7 +50,10 @@ export const PostViewPage = () => {
       <Helmet>
         <title>{post?.title || "Post View"}</title>
         <meta property="og:title" content={post?.title || "Post View"} />
-        <meta property="og:image" content={post?.photoUrls[0] || "URL_da_imagem_padrao"} />
+        <meta
+          property="og:image"
+          content={post?.photoUrls[0] || "URL_da_imagem_padrao"}
+        />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
       </Helmet>
