@@ -3,13 +3,18 @@ import WhatsIcon from "../../assets/WhatsAppColor.svg";
 import FaceIcon from "../../assets/FaceBookColor.svg";
 
 export const SocialMediaStick = () => {
-  const pageUrl = encodeURIComponent(window.location.href);
+  const pageUrl = encodeURIComponent(
+    "https://fariasx.online/link/6a07b390-b323-42ff-a653-3dca2a2026da"
+  );
+  const customLinkText = encodeURIComponent(
+    "[Leia mais no Jornal da Bahia](https://fariasx.online/link/6a07b390-b323-42ff-a653-3dca2a2026da)"
+  );
   const message =
     encodeURIComponent(
       "🌟 Últimas Notícias do Jornal da Bahia 🌟 \n Compartilhe essa notícia com seus amigos e fique por dentro dos acontecimentos mais importantes: \n \n"
     ) +
     " " +
-    pageUrl;
+    customLinkText;
 
   const shareOnWhatsApp = () => {
     const whatsappUrl = `https://wa.me/?text=${message}`;
@@ -41,8 +46,11 @@ export const SocialMediaStick = () => {
         >
           <img className="h-[25px] w-[25px]" src={WhatsIcon} alt="WhatsApp" />
         </button>
-        <button onClick={shareOnX} className="flex justify-center items-center bg-black w-full h-[55px]">
-          <img className="h-[24px] w-[24px]" src={XIcon} alt="Twitter" />
+        <button
+          onClick={shareOnX}
+          className="flex justify-center items-center bg-blueX w-full h-[55px]"
+        >
+          <img className="h-[24px] w-[24px]" src={XIcon} alt="X" />
         </button>
       </div>
     </>
