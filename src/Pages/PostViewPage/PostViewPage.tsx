@@ -54,6 +54,7 @@ export const PostViewPage = () => {
           property="og:image"
           content={post?.photoUrls[0] || "URL_da_imagem_padrao"}
         />
+        <meta property="og:type" content="website"></meta>
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
       </Helmet>
