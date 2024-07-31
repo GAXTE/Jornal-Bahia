@@ -47,7 +47,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
     try {
       const { data } = await Api.get("/post");
       data.reverse();
-      sessionStorage.setItem("allPosts", JSON.stringify(data));
+      sessionStorage.setItem("allPosts", JSON.stringify(data.slice(0, 100)));
       sessionStorage.setItem("allPostsFetchTime", now.toString());
 
       setGetAllPosts(data);
@@ -68,7 +68,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
 
     try {
       const { data } = await Api.get("/filter/post/views");
-      sessionStorage.setItem("postsMostReads", JSON.stringify(data));
+      sessionStorage.setItem("postsMostReads", JSON.stringify(data.slice(0, 100)));
       sessionStorage.setItem("lastFetchTime", now.toString());
       setPostMostState(data);
     } catch (error) {}

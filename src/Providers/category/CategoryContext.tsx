@@ -61,7 +61,7 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
       const sortedData = data.sort(
         (a: IPost, b: IPost) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
       );
-      sessionStorage.setItem("postMain", JSON.stringify(sortedData));
+      sessionStorage.setItem("postMain", JSON.stringify(sortedData.slice(0, 20)));
       sessionStorage.setItem("postMainTimestamp", currentTime.toString());
       setPostsMain(sortedData);
       return sortedData;
