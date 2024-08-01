@@ -11,7 +11,11 @@ interface IPostContext {
   getAllPosts: () => void;
   getPostById: (id: string) => Promise<IPost>;
   search: (posts: IPost[], search: string) => IPost[];
-  pagination: (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number) => IPost[];
+  pagination: (
+    obj: IPost[] | undefined | null,
+    pageSize: number,
+    pageNumber: number
+  ) => IPost[];
   postMostState?: IPost[];
   AllPosts?: IPost[];
 }
@@ -33,43 +37,43 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
   const [postMostState, setPostMostState] = useState<IPost[]>();
 
   const getAllPosts = async () => {
-    const cachedPosts = sessionStorage.getItem("allPosts");
-    const lastFetchTime = sessionStorage.getItem("allPostsFetchTime");
+    // const cachedPosts = sessionStorage.getItem("allPosts");
+    // const lastFetchTime = sessionStorage.getItem("allPostsFetchTime");
 
-    const tenMinutes = 5 * 60 * 1000;
-    const now = new Date().getTime();
+    // const tenMinutes = 5 * 60 * 1000;
+    // const now = new Date().getTime();
 
-    if (cachedPosts && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
-      setGetAllPosts(JSON.parse(cachedPosts));
-      return;
-    }
+    // if (cachedPosts && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
+    //   setGetAllPosts(JSON.parse(cachedPosts));
+    //   return;
+    // }
 
     try {
       const { data } = await Api.get("/post");
       data.reverse();
-      sessionStorage.setItem("allPosts", JSON.stringify(data.slice(0, 100)));
-      sessionStorage.setItem("allPostsFetchTime", now.toString());
+      // sessionStorage.setItem("allPosts", JSON.stringify(data.slice(0, 100)));
+      // sessionStorage.setItem("allPostsFetchTime", now.toString());
 
       setGetAllPosts(data);
     } catch (error) {}
   };
 
   const getMostRead = async () => {
-    const postsMostReads = sessionStorage.getItem("postsMostReads");
-    const lastFetchTime = sessionStorage.getItem("lastFetchTime");
+    // const postsMostReads = sessionStorage.getItem("postsMostReads");
+    // const lastFetchTime = sessionStorage.getItem("lastFetchTime");
 
-    const tenMinutes = 10 * 60 * 1000;
-    const now = new Date().getTime();
+    // const tenMinutes = 10 * 60 * 1000;
+    // const now = new Date().getTime();
 
-    if (postsMostReads && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
-      setPostMostState(JSON.parse(postsMostReads));
-      return;
-    }
+    // if (postsMostReads && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
+    //   setPostMostState(JSON.parse(postsMostReads));
+    //   return;
+    // }
 
     try {
       const { data } = await Api.get("/filter/post/views");
-      sessionStorage.setItem("postsMostReads", JSON.stringify(data.slice(0, 100)));
-      sessionStorage.setItem("lastFetchTime", now.toString());
+      // sessionStorage.setItem("postsMostReads", JSON.stringify(data.slice(0, 100)));
+      // sessionStorage.setItem("lastFetchTime", now.toString());
       setPostMostState(data);
     } catch (error) {}
   };
@@ -91,12 +95,19 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
         regex.test(post.title) ||
         regex.test(post.content) ||
         post.tags.some((tag) => regex.test(tag.name)) ||
-        post.categories.some((category) => regex.test(category.name) || regex.test(category.description))
+        post.categories.some(
+          (category) =>
+            regex.test(category.name) || regex.test(category.description)
+        )
     );
     return searchResult;
   };
 
-  const pagination = (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number): IPost[] => {
+  const pagination = (
+    obj: IPost[] | undefined | null,
+    pageSize: number,
+    pageNumber: number
+  ): IPost[] => {
     --pageNumber;
     if (!obj) return [];
     return obj.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
