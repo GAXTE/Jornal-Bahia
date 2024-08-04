@@ -1,28 +1,19 @@
 import XIcon from "../../assets/XColor.svg";
 import WhatsIcon from "../../assets/WhatsAppColor.svg";
 import FaceIcon from "../../assets/FaceBookColor.svg";
+import { useLocation } from "react-router-dom";
 
 export const SocialMediaStick = () => {
-  const pageUrl = encodeURIComponent(
-    "https://fariasx.online/link/6a07b390-b323-42ff-a653-3dca2a2026da"
-  );
-  const customLinkText = encodeURIComponent(
-    "[Leia mais no Jornal da Bahia](https://fariasx.online/link/6a07b390-b323-42ff-a653-3dca2a2026da)"
-  );
-  const message =
-    encodeURIComponent(
-      "🌟 Últimas Notícias do Jornal da Bahia 🌟 \n Compartilhe essa notícia com seus amigos e fique por dentro dos acontecimentos mais importantes: \n \n"
-    ) +
-    " " +
-    customLinkText;
-
+  const location = useLocation();
+  const idPage = location.pathname.split("/").pop();
+  const pageUrl = encodeURIComponent(`https://jornaldabahia.app.br/${idPage}`);
   const shareOnWhatsApp = () => {
-    const whatsappUrl = `https://wa.me/?text=${message}`;
+    const whatsappUrl = `https://wa.me/?text=${pageUrl}`;
     window.open(whatsappUrl, "_blank");
   };
 
   const shareOnX = () => {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${message}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${pageUrl}`;
     window.open(twitterUrl, "_blank");
   };
 
@@ -46,10 +37,7 @@ export const SocialMediaStick = () => {
         >
           <img className="h-[25px] w-[25px]" src={WhatsIcon} alt="WhatsApp" />
         </button>
-        <button
-          onClick={shareOnX}
-          className="flex justify-center items-center bg-blueX w-full h-[55px]"
-        >
+        <button onClick={shareOnX} className="flex justify-center items-center bg-blueX w-full h-[55px]">
           <img className="h-[24px] w-[24px]" src={XIcon} alt="X" />
         </button>
       </div>
