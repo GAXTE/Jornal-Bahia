@@ -7,7 +7,11 @@ interface IListOfCategories {
   isModalOpen: boolean;
 }
 
-export const ListOfCategories = ({ style, setIsModalOpen, isModalOpen }: IListOfCategories) => {
+export const ListOfCategories = ({
+  style,
+  setIsModalOpen,
+  isModalOpen,
+}: IListOfCategories) => {
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const navi = useNavigate();
   const categories = [
@@ -71,7 +75,10 @@ export const ListOfCategories = ({ style, setIsModalOpen, isModalOpen }: IListOf
   };
   return (
     <>
-      <div className="container hidden lg:flex  min-h-[52px] items-center " style={style}>
+      <div
+        className="container hidden min-h-[400px] lg:flex  lg:min-h-[52px] items-center "
+        style={style}
+      >
         <ul
           className="menu-text text-nowrap hidden lg:flex gap-[23px]  w-full justify-between font-primaryFont  font-medium"
           style={style}
