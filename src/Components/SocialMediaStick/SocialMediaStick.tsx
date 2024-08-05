@@ -24,7 +24,7 @@ export const SocialMediaStick = () => {
 
   return (
     <>
-      <div className="flex flex-col max-h-[122px] max-w-[40px] min-w-[40px] lg:max-h-[165px] lg:max-w-[55px] lg:min-w-[55px] sticky top-14 left-96 ">
+      <div className="flex flex-col max-h-[122px] max-w-[40px] min-w-[40px] lg:max-h-[165px] lg:max-w-[55px] lg:min-w-[55px] sticky top-14 left-96 mt-8">
         <button
           onClick={shareOnFacebook}
           className="flex justify-center items-center bg-blueFace w-full h-[55px]"
