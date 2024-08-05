@@ -14,7 +14,7 @@ export const SocialMedia = ({ style }: ISocialMedia) => {
     <>
       <div
         style={style}
-        className="min-w-[103px] min-h-[25px] justify-between items-center hidden lg:flex gap-2"
+        className="lg:min-w-[103px] lg:min-h-[25px] h-[40px] justify-between items-center hidden lg:flex gap-2"
       >
         <a
           href="https://x.com/jornaldabahia01?t=rnDshPoVgRn7b5WA-VRL8A&s=09"
@@ -29,13 +29,13 @@ export const SocialMedia = ({ style }: ISocialMedia) => {
             alt="instagram"
           />
         </a>
-        <a href="">
+        {/* <a href="">
           <img
             className=" h-[25px]  cursor-pointer"
             src={face}
             alt="FaceBook"
           />
-        </a>
+        </a> */}
         <a href="https://wa.me/+557193485952" target="_blank">
           <img
             className=" h-[25px]  cursor-pointer"

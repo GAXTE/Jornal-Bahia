@@ -30,10 +30,11 @@ export const HamburgerMenu = () => {
 
   const modalSocialMediaStyle: React.CSSProperties = {
     display: "inline-flex",
-    marginBottom: "23px",
+    // marginBottom: "23px",
+    marginTop: "23px",
     backgroundColor: "white",
-    maxHeight: "100px",
-    height: "100px",
+    maxHeight: "50px",
+    height: "50px",
   };
 
   const modalListStyle: React.CSSProperties = {
@@ -62,7 +63,7 @@ export const HamburgerMenu = () => {
         {isModalOpen && (
           <div
             onClick={closeModalIfClickedOutside}
-            className="fixed inset-0 bg-opacity-50 z-50 flex justify-center pt-[128px] lg:hidden"
+            className="fixed inset-0 bg-opacity-50 z-50 flex justify-center pt-[128px]  lg:hidden"
           >
             <motion.div
               initial={{ opacity: 0, x: 50 }}
