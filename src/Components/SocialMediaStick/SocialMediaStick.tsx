@@ -24,7 +24,7 @@ export const SocialMediaStick = () => {
 
   return (
     <>
-      <div className="flex flex-col max-h-[122px] max-w-[40px] min-w-[40px] lg:max-h-[165px] lg:max-w-[55px] lg:min-w-[55px] sticky top-14 left-96 mt-2">
+      <div className="flex flex-col max-h-[122px] max-w-[40px] min-w-[40px] lg:max-h-[165px] lg:max-w-[55px] lg:min-w-[55px] sticky top-14 left-96 ">
         <button
           onClick={shareOnFacebook}
           className="flex justify-center items-center bg-blueFace w-full h-[55px]"
@@ -37,7 +37,10 @@ export const SocialMediaStick = () => {
         >
           <img className="h-[25px] w-[25px]" src={WhatsIcon} alt="WhatsApp" />
         </button>
-        <button onClick={shareOnX} className="flex justify-center items-center bg-blueX w-full h-[55px]">
+        <button
+          onClick={shareOnX}
+          className="flex justify-center items-center bg-BlackX w-full h-[55px]"
+        >
           <img className="h-[24px] w-[24px]" src={XIcon} alt="X" />
         </button>
       </div>
