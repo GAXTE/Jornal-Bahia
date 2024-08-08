@@ -8,20 +8,16 @@ interface Props {
 
 interface IPostContext {
   getMostRead: () => void;
-  getAllPosts: () => void;
+  getAllPosts: (page?: number, limit?: number) => Promise<IPost[]>;
   getPostById: (id: string) => Promise<IPost>;
   search: (posts: IPost[], search: string) => IPost[];
-  pagination: (
-    obj: IPost[] | undefined | null,
-    pageSize: number,
-    pageNumber: number
-  ) => IPost[];
+  pagination: (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number) => IPost[];
   postMostState?: IPost[];
   AllPosts?: IPost[];
 }
 
 export const PostContext = React.createContext<IPostContext>({
-  getAllPosts: () => {},
+  getAllPosts: async () => [],
   getMostRead: () => {},
   pagination: () => [],
   getPostById: async () => {
@@ -36,25 +32,23 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
   const [AllPosts, setGetAllPosts] = useState<IPost[]>();
   const [postMostState, setPostMostState] = useState<IPost[]>();
 
-  const getAllPosts = async () => {
-    // const cachedPosts = sessionStorage.getItem("allPosts");
-    // const lastFetchTime = sessionStorage.getItem("allPostsFetchTime");
+  const getAllPosts = async (page = 1, limit = 25) => {
+    const cachedPosts = sessionStorage.getItem(`allPosts-page-${page}`);
+    const lastFetchTime = sessionStorage.getItem(`allPostsFetchTime-page-${page}`);
 
-    // const tenMinutes = 5 * 60 * 1000;
-    // const now = new Date().getTime();
+    const tenMinutes = 5 * 60 * 1000;
+    const now = new Date().getTime();
 
-    // if (cachedPosts && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
-    //   setGetAllPosts(JSON.parse(cachedPosts));
-    //   return;
-    // }
+    if (cachedPosts && lastFetchTime && now - parseInt(lastFetchTime) < tenMinutes) {
+      return JSON.parse(cachedPosts);
+    }
 
     try {
-      const { data } = await Api.get("/post");
-      data.reverse();
-      // sessionStorage.setItem("allPosts", JSON.stringify(data.slice(0, 100)));
-      // sessionStorage.setItem("allPostsFetchTime", now.toString());
-
-      setGetAllPosts(data);
+      const { data } = await Api.get(`/post?page=${page}&limit=${limit}`);
+      sessionStorage.setItem(`allPosts`, JSON.stringify(data.posts));
+      sessionStorage.setItem(`allPostsFetchTime${page}`, now.toString());
+      setGetAllPosts(data.posts);
+      return data.posts;
     } catch (error) {}
   };
 
@@ -95,24 +89,16 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
         regex.test(post.title) ||
         regex.test(post.content) ||
         post.tags.some((tag) => regex.test(tag.name)) ||
-        post.categories.some(
-          (category) =>
-            regex.test(category.name) || regex.test(category.description)
-        )
+        post.categories.some((category) => regex.test(category.name) || regex.test(category.description))
     );
     return searchResult;
   };
 
-  const pagination = (
-    obj: IPost[] | undefined | null,
-    pageSize: number,
-    pageNumber: number
-  ): IPost[] => {
+  const pagination = (obj: IPost[] | undefined | null, pageSize: number, pageNumber: number): IPost[] => {
     --pageNumber;
-    if (!obj) return [];
+    if (!Array.isArray(obj)) return [];
     return obj.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
   };
-
   useEffect(() => {
     getMostRead();
     getAllPosts();

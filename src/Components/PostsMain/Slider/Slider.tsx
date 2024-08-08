@@ -6,12 +6,9 @@ import { useNavigate } from "react-router-dom";
 export const Slider = () => {
   const [current, setCurrent] = useState(0);
   const { PostsMain } = useCategoryContext();
-  const sortedPostsMain = [...PostsMain].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
-  const images = sortedPostsMain.slice(0, 6).map((post) => post.photoUrls[0]);
-  const titles = sortedPostsMain.slice(0, 6).map((post) => post.title);
-  const id = sortedPostsMain.slice(0, 6).map((post) => post.id);
+  const images = PostsMain.map((post) => post.photoUrls[0]);
+  const titles = PostsMain.map((post) => post.title);
+  const id = PostsMain.map((post) => post.id);
   const MAX_CHARS = 80;
   let categorie = "";
   const navi = useNavigate();
@@ -32,9 +29,15 @@ export const Slider = () => {
     const interval = setInterval(nextSlide, 7000);
     return () => clearInterval(interval);
   }, [images.length]);
-
   if (images.length !== 0 || titles.length !== 0) {
-    categorie = sortedPostsMain[current].categories[0].id;
+    categorie =
+      PostsMain &&
+      PostsMain[0] &&
+      PostsMain[0].categories &&
+      PostsMain[0].categories[0] &&
+      PostsMain[0].categories[0].id
+        ? PostsMain[0].categories[0].id
+        : "Categoria não encontrada";
   }
 
   const handleCategoryClick = (categoryId: string) => {

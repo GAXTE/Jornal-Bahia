@@ -47,24 +47,21 @@ export const CategoryProvider: React.FC<Props> = ({ children }) => {
   };
 
   const getPostsForMain = async () => {
-    const cachedPosts = sessionStorage.getItem("postMain");
-    const cachedTimestamp = sessionStorage.getItem("postMainTimestamp");
-    const currentTime = Date.now();
+    // const cachedPosts = sessionStorage.getItem("postMain");
+    // const cachedTimestamp = sessionStorage.getItem("postMainTimestamp");
+    // const currentTime = Date.now();
 
-    if (cachedPosts && cachedTimestamp && currentTime - parseInt(cachedTimestamp) < CACHE_TTL) {
-      setPostsMain(JSON.parse(cachedPosts));
-      return JSON.parse(cachedPosts);
-    }
+    // if (cachedPosts && cachedTimestamp && currentTime - parseInt(cachedTimestamp) < CACHE_TTL) {
+    //   setPostsMain(JSON.parse(cachedPosts));
+    //   return JSON.parse(cachedPosts);
+    // }
 
-    const data = await getAllPostByCategory("89202bb2-5f14-4a7d-bf18-217cd161ac82");
+    const { data } = await Api.get("/filter/slides");
     if (data) {
-      const sortedData = data.sort(
-        (a: IPost, b: IPost) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-      );
-      sessionStorage.setItem("postMain", JSON.stringify(sortedData.slice(0, 20)));
-      sessionStorage.setItem("postMainTimestamp", currentTime.toString());
-      setPostsMain(sortedData);
-      return sortedData;
+      // sessionStorage.setItem("postMain", JSON.stringify(sortedData.slice(0, 20)));
+      // sessionStorage.setItem("postMainTimestamp", currentTime.toString());
+      setPostsMain(data);
+      return data;
     }
     return [];
   };
