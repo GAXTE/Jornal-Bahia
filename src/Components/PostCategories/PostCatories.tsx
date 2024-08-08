@@ -3,13 +3,12 @@ import { usePostContext } from "../../Providers/post/PostContext";
 import { IPost } from "../../types/PostTypes";
 import { DateComponent } from "../Date/Date";
 import { useNavigate } from "react-router-dom";
+import { Api } from "../../Services/api";
 
 export const PostCategories = () => {
   const { AllPosts } = usePostContext();
   const [uniqueCategoryPosts, setUniqueCategoryPosts] = useState<IPost[]>([]);
-  const [categoryFirstPost, setCategoryFirstPost] = useState<
-    IPost | undefined
-  >();
+  const [categoryFirstPost, setCategoryFirstPost] = useState<IPost | undefined>();
   const navi = useNavigate();
 
   const MAX_CHARS = 80; // Exemplo: limite de 100 caracteres
@@ -19,14 +18,25 @@ export const PostCategories = () => {
   }
 
   useEffect(() => {
-    if (AllPosts) {
-      const filteredPosts = filterUniquePosts(AllPosts);
-      const shuffledPosts = shuffleArray(filteredPosts);
-      const limitedPosts = shuffledPosts.slice(0, 5);
-      setUniqueCategoryPosts(limitedPosts);
-      setCategoryFirstPost(limitedPosts[0]);
-    }
-  }, [AllPosts]);
+    const fetchPosts = async () => {
+      try {
+        const response = await Api.get("/post?page=2&limit=25");
+        const posts: IPost[] = response.data.posts;
+        if (Array.isArray(posts)) {
+          const filteredPosts = filterUniquePosts(posts);
+          const shuffledPosts = shuffleArray(filteredPosts);
+          const limitedPosts = shuffledPosts.slice(0, 5);
+          setUniqueCategoryPosts(limitedPosts);
+          setCategoryFirstPost(limitedPosts[0]);
+        } else {
+          console.error("A resposta da API não é um array:", posts);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar posts:", error);
+      }
+    };
+    fetchPosts();
+  }, []);
 
   const filterUniquePosts = (posts: IPost[]): IPost[] => {
     const uniqueCategoriesMap: { [categoryId: string]: IPost } = {};
@@ -65,9 +75,7 @@ export const PostCategories = () => {
       <ul className="flex flex-col  gap-[13px] max-w-[600px] lg:max-w-[348px]">
         <button
           className="self-start h-[33px] bg-primary lg:h-[39px]  bg- rounded label-category "
-          onClick={() =>
-            handleCategoryClick(categoryFirstPost?.categories[0].id)
-          }
+          onClick={() => handleCategoryClick(categoryFirstPost?.categories[0].id)}
         >
           {categoryFirstPost?.categories[0].name}
         </button>
@@ -86,10 +94,7 @@ export const PostCategories = () => {
                     src={post.photoUrls}
                     alt={truncateText(post.title, MAX_CHARS)}
                   />
-                  <h2
-                    className="cursor-pointer tittle-2"
-                    onClick={() => handlePostClick(post.id)}
-                  >
+                  <h2 className="cursor-pointer tittle-2" onClick={() => handlePostClick(post.id)}>
                     {post.title}
                   </h2>
                 </div>
@@ -102,10 +107,7 @@ export const PostCategories = () => {
                   >
                     {post.categories[0].name}
                   </strong>
-                  <h2
-                    className=" cursor-pointer tittle-2-mobile"
-                    onClick={() => handlePostClick(post.id)}
-                  >
+                  <h2 className=" cursor-pointer tittle-2-mobile" onClick={() => handlePostClick(post.id)}>
                     {truncateText(post.title, MAX_CHARS)}
                   </h2>
                 </div>

@@ -1,31 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { usePostContext } from "../../Providers/post/PostContext";
-import { PublicityBanner } from "../PublicityBanner/PublicityBanner";
+import { useNavigate } from "react-router-dom";
 import { InfiniteScroll } from "../InfiniteScroll/InfiniteScroll";
 import { IPost } from "../../types/PostTypes";
 import { DateComponent } from "../Date/Date";
-import { useNavigate } from "react-router-dom";
 import ImagemPlaceholder from "../../assets/noticiaPlacehlder.jpg";
+import { PublicityBanner } from "../PublicityBanner/PublicityBanner";
+import { usePostContext } from "../../Providers/post/PostContext";
 
 interface IProps {
   posts: IPost[];
 }
 
 export const LatestNews = ({ posts }: IProps) => {
-  const { pagination } = usePostContext();
-  const [page, setPage] = useState(0);
-  const [paginatedView, setPaginatedView] = useState<IPost[]>([]);
+  const [page, setPage] = useState(1);
+  const [paginatedView, setPaginatedView] = useState<IPost[]>(posts);
   const idCount: Record<string, number> = {};
+  const { getAllPosts } = usePostContext();
   const navi = useNavigate();
 
-  posts?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
   useEffect(() => {
-    if (page === 1 && paginatedView.length > 0) return;
+    const fetchMorePosts = async () => {
+      const newPosts = await getAllPosts(page);
+      if (newPosts && newPosts.length > 0) {
+        setPaginatedView((prev) => [...prev, ...newPosts]);
+      }
+    };
 
-    const paginated = pagination(posts, 3, page);
-    setPaginatedView((prev) => [...prev, ...paginated]);
-  }, [page, posts]);
+    if (page > 0) {
+      fetchMorePosts();
+    }
+  }, [page]);
 
   const handlePostClick = (postId: string) => {
     navi(`/viewpost/${postId}`);
@@ -37,7 +41,7 @@ export const LatestNews = ({ posts }: IProps) => {
 
   return (
     <div className="flex flex-col max-w-[600px]">
-      <ul className="flex flex-col gap-[25px] lg:max-w-[600px] ">
+      <ul className="flex flex-col gap-[25px] lg:max-w-[600px]">
         <h2 className="tittle-1-mobile lg:title-1">Últimas Notícias</h2>
         {paginatedView.map((post, index) => {
           idCount[post.id] = (idCount[post.id] || 0) + 1;
@@ -47,7 +51,7 @@ export const LatestNews = ({ posts }: IProps) => {
             <React.Fragment key={key}>
               <li className="flex flex-col lg:flex-row gap-[20px]">
                 <img
-                  className="cursor-pointer max-w-[full] max-h-[188px] rounded-lg lg:max-w-[249px] lg:min-w-[249px] lg:max-h-[249px] lg:min-h-[249px] object-cover"
+                  className="cursor-pointer max-w-full max-h-[188px] rounded-lg lg:max-w-[249px] lg:min-w-[249px] lg:max-h-[249px] lg:min-h-[249px] object-cover"
                   src={imagem}
                   alt={"texto alternativo"}
                   onClick={() => handlePostClick(post.id)}

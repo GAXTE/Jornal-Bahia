@@ -7,39 +7,45 @@ import { usePostContext } from "../../Providers/post/PostContext";
 import { IPost } from "../../types/PostTypes";
 import { Footer } from "../../Components/Footer/Footer";
 import logo from "../../assets/LogoBa.png";
+import { Api } from "../../Services/api";
+
 export const PostCategoriesPage = () => {
   const { AllPosts } = usePostContext();
   const { categorieId } = useParams();
   const [posts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
-    if (AllPosts) {
-      const filteredPosts = AllPosts.filter((post) => post.categories[0].id === categorieId);
-      setPosts(filteredPosts);
-      const faviconLink = document.querySelector("link[rel~='icon']");
-      const logoUrl = logo;
+    const fetchPosts = async () => {
+      if (AllPosts) {
+        const { data } = await Api.get(`post/category/${categorieId}`);
+        setPosts(data);
+        const faviconLink = document.querySelector("link[rel~='icon']");
+        const logoUrl = logo;
 
-      if (faviconLink) {
-        (faviconLink as HTMLLinkElement).href = logoUrl;
-      } else {
-        const newFavicon = document.createElement("link");
-        newFavicon.rel = "icon";
-        newFavicon.href = logoUrl;
-        document.head.appendChild(newFavicon);
+        if (faviconLink) {
+          (faviconLink as HTMLLinkElement).href = logoUrl;
+        } else {
+          const newFavicon = document.createElement("link");
+          newFavicon.rel = "icon";
+          newFavicon.href = logoUrl;
+          document.head.appendChild(newFavicon);
+        }
+        document.title = "Jornal da Bahia";
       }
-
-      document.title = "Jornal da Bahia";
-    }
+    };
+    fetchPosts();
   }, [categorieId, AllPosts]);
-
   return (
     <>
       <Header />
       <main className="container">
         <PublicityBanner />
-        <ListPosts posts={posts}>
-          <></>
-        </ListPosts>
+        {posts.length > 0 && (
+          <ListPosts posts={posts}>
+            <></>
+          </ListPosts>
+        )}{" "}
+        {/* Verifica se posts não está vazio */}
       </main>
       <Footer />
     </>
