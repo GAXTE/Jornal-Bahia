@@ -14,7 +14,7 @@ import { Helmet } from "react-helmet";
 
 export const PostViewPage = () => {
   const { getPostById } = usePostContext();
-  const { AllPosts } = usePostContext();
+  const { AllPosts, getAllPosts } = usePostContext();
   const { postId } = useParams();
   const [post, setPost] = useState<IPost>();
   const [error, setError] = useState<boolean>(false);
@@ -26,6 +26,7 @@ export const PostViewPage = () => {
         try {
           window.scrollTo(0, 0);
           const postDetails = await getPostById(postId);
+          await getAllPosts();
           setPost(postDetails);
           document.title = postDetails?.title || "Post View";
         } catch (error) {
@@ -50,10 +51,7 @@ export const PostViewPage = () => {
       <Helmet>
         <title>{post?.title || "Post View"}</title>
         <meta property="og:title" content={post?.title || "Post View"} />
-        <meta
-          property="og:image"
-          content={post?.photoUrls[0] || "URL_da_imagem_padrao"}
-        />
+        <meta property="og:image" content={post?.photoUrls[0] || "URL_da_imagem_padrao"} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="URL da página" />
         {/* <meta property="og:image:width" content="1200">
