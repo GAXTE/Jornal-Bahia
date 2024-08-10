@@ -22,7 +22,6 @@ export const PostViewPage = () => {
       setError(false);
       const fetchPost = async () => {
         try {
-          window.scrollTo(0, 0);
           const postDetails = await getPostById(postId);
           setPost(postDetails);
           document.title = postDetails?.title || "Post View";

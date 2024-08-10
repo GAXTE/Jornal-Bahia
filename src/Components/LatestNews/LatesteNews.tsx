@@ -36,6 +36,7 @@ export const LatestNews = () => {
 
   const handlePostClick = (postId: string) => {
     navi(`/viewpost/${postId}`);
+    window.scrollTo(0, 0);
   };
 
   const handleCategoryClick = (categoryId: string) => {
