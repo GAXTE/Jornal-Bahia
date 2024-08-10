@@ -14,7 +14,7 @@ import { Helmet } from "react-helmet";
 
 export const PostViewPage = () => {
   const { getPostById } = usePostContext();
-  const { AllPosts, getAllPosts } = usePostContext();
+  const { AllPosts } = usePostContext();
   const { postId } = useParams();
   const [post, setPost] = useState<IPost>();
   const [error, setError] = useState<boolean>(false);
@@ -26,7 +26,6 @@ export const PostViewPage = () => {
         try {
           window.scrollTo(0, 0);
           const postDetails = await getPostById(postId);
-          await getAllPosts();
           setPost(postDetails);
           document.title = postDetails?.title || "Post View";
         } catch (error) {
@@ -69,7 +68,7 @@ export const PostViewPage = () => {
                 <span>Nenhum post Encontrado</span>
               </div>
             )}
-            <LatestNews posts={AllPosts!} />
+            <LatestNews />
           </div>
           {error ? null : <SocialMediaStick />}
         </div>
