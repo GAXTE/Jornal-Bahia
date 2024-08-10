@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Footer } from "../../Components/Footer/Footer";
 import { Header } from "../../Components/Header/Header";
 import { LatestNews } from "../../Components/LatestNews/LatesteNews";
@@ -8,21 +8,9 @@ import { PostsMain } from "../../Components/PostsMain/PostsMain";
 import { Publicities } from "../../Components/Publicities/publicities";
 import { PublicityBanner } from "../../Components/PublicityBanner/PublicityBanner";
 import logo from "../../assets/LogoBa.png";
-import { IPost } from "../../types/PostTypes";
-import { usePostContext } from "../../Providers/post/PostContext";
 
 export const Homepage = () => {
-  const { getAllPosts } = usePostContext();
-  const [allPosts, setAllPosts] = useState<IPost[]>([]);
-
   useEffect(() => {
-    const fetchInitialPosts = async () => {
-      const initialPosts = await getAllPosts();
-      setAllPosts(initialPosts);
-    };
-
-    fetchInitialPosts();
-
     const faviconLink = document.querySelector("link[rel~='icon']");
     const logoUrl = logo;
 

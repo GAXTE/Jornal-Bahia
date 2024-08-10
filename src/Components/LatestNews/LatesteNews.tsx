@@ -7,10 +7,6 @@ import ImagemPlaceholder from "../../assets/noticiaPlacehlder.jpg";
 import { PublicityBanner } from "../PublicityBanner/PublicityBanner";
 import { usePostContext } from "../../Providers/post/PostContext";
 
-interface IProps {
-  posts: IPost[];
-}
-
 export const LatestNews = () => {
   const [page, setPage] = useState(1);
   const [paginatedView, setPaginatedView] = useState<IPost[]>();

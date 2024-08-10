@@ -10,11 +10,9 @@ import { IPost } from "../../types/PostTypes";
 import animationData from "../../assets/Animation - 1718972246036.json";
 import Lottie from "react-lottie";
 import { LatestNews } from "../../Components/LatestNews/LatesteNews";
-import { Helmet } from "react-helmet";
 
 export const PostViewPage = () => {
   const { getPostById } = usePostContext();
-  const { AllPosts } = usePostContext();
   const { postId } = useParams();
   const [post, setPost] = useState<IPost>();
   const [error, setError] = useState<boolean>(false);
@@ -47,15 +45,6 @@ export const PostViewPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{post?.title || "Post View"}</title>
-        <meta property="og:title" content={post?.title || "Post View"} />
-        <meta property="og:image" content={post?.photoUrls[0] || "URL_da_imagem_padrao"} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="URL da página" />
-        {/* <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630"> */}
-      </Helmet>
       <Header />
       <main className="container flex flex-col items-center mb-4">
         {error ? null : <PublicityBanner />}
