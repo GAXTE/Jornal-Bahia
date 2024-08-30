@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Header } from "../../Components/Header/Header";
 import { ListPosts } from "../../Components/ListPosts/ListPosts";
 import { PublicityBanner } from "../../Components/PublicityBanner/PublicityBanner";
@@ -13,13 +13,13 @@ export const PostCategoriesPage = () => {
   const location = useLocation();
 
   const { AllPosts } = usePostContext();
-  const categorieId = location.pathname.split("/").pop();
+  const categoryId = location.pathname.split("/").pop();
   const [posts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       if (AllPosts || location) {
-        const { data } = await Api.get(`post/category/${categorieId}`);
+        const { data } = await Api.get(`post/category/${categoryId}`);
 
         setPosts(data);
         const faviconLink = document.querySelector("link[rel~='icon']");
@@ -37,7 +37,7 @@ export const PostCategoriesPage = () => {
       }
     };
     fetchPosts();
-  }, [categorieId, AllPosts, location]);
+  }, [AllPosts, location]);
 
   return (
     <>
