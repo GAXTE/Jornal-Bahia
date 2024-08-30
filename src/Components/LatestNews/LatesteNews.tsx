@@ -8,7 +8,7 @@ import { PublicityBanner } from "../PublicityBanner/PublicityBanner";
 import { usePostContext } from "../../Providers/post/PostContext";
 
 export const LatestNews = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [paginatedView, setPaginatedView] = useState<IPost[]>();
   const idCount: Record<string, number> = {};
   const { getAllPosts } = usePostContext();
@@ -16,7 +16,7 @@ export const LatestNews = () => {
 
   useEffect(() => {
     const fetchMorePosts = async () => {
-      const newPosts = await getAllPosts(page);
+      const newPosts = await getAllPosts(page, 10);
       if (newPosts && newPosts.length > 0) {
         setPaginatedView([...(paginatedView || []), ...newPosts]);
       }
@@ -26,13 +26,6 @@ export const LatestNews = () => {
       fetchMorePosts();
     }
   }, [page]);
-  useEffect(() => {
-    const newFtch = async () => {
-      const a = await getAllPosts();
-      setPaginatedView(a);
-    };
-    newFtch();
-  }, []);
 
   const handlePostClick = (postId: string) => {
     navi(`/viewpost/${postId}`);
