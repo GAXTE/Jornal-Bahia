@@ -32,7 +32,7 @@ export const PostProvider: React.FC<Props> = ({ children }) => {
   const [AllPosts, setGetAllPosts] = useState<IPost[]>();
   const [postMostState, setPostMostState] = useState<IPost[]>();
 
-  const getAllPosts = async (page = 1, limit = 25) => {
+  const getAllPosts = async (page = 1, limit = 22) => {
     const cachedPosts = sessionStorage.getItem(`allPosts-page-${page}`);
     const lastFetchTime = sessionStorage.getItem(`allPostsFetchTime-page-${page}`);
 
