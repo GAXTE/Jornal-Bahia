@@ -13,13 +13,13 @@ export const PostCategoriesPage = () => {
   const location = useLocation();
 
   const { AllPosts } = usePostContext();
-  const categorieId = location.pathname.split("/").pop();
+  const categoryId = location.pathname.split("/").pop();
   const [posts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       if (AllPosts || location) {
-        const { data } = await Api.get(`post/category/${categorieId}`);
+        const { data } = await Api.get(`post/category/${categoryId}`);
 
         setPosts(data);
         const faviconLink = document.querySelector("link[rel~='icon']");

@@ -17,6 +17,7 @@ export const ListPosts = ({ children, posts = [] }: IProps) => {
 
   const handlePostClick = (postId: string) => {
     navi(`/viewpost/${postId}`);
+    page;
   };
 
   const handleCategoryClick = (categoryId: string) => {
