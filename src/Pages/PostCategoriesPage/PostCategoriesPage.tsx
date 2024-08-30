@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Header } from "../../Components/Header/Header";
 import { ListPosts } from "../../Components/ListPosts/ListPosts";
 import { PublicityBanner } from "../../Components/PublicityBanner/PublicityBanner";
@@ -10,14 +10,17 @@ import logo from "../../assets/LogoBa.png";
 import { Api } from "../../Services/api";
 
 export const PostCategoriesPage = () => {
+  const location = useLocation();
+
   const { AllPosts } = usePostContext();
-  const { categorieId } = useParams();
+  const categorieId = location.pathname.split("/").pop();
   const [posts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      if (AllPosts) {
+      if (AllPosts || location) {
         const { data } = await Api.get(`post/category/${categorieId}`);
+
         setPosts(data);
         const faviconLink = document.querySelector("link[rel~='icon']");
         const logoUrl = logo;
@@ -34,7 +37,8 @@ export const PostCategoriesPage = () => {
       }
     };
     fetchPosts();
-  }, [categorieId, AllPosts]);
+  }, [categorieId, AllPosts, location]);
+
   return (
     <>
       <Header />
