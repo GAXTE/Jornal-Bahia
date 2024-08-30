@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { usePostContext } from "../../Providers/post/PostContext";
+import React, { useState } from "react";
 import { IPost } from "../../types/PostTypes";
 import { InfiniteScroll } from "../InfiniteScroll/InfiniteScroll";
 import { PublicityBanner } from "../PublicityBanner/PublicityBanner";

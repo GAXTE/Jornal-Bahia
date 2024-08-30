@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Header } from "../../Components/Header/Header";
 import { ListPosts } from "../../Components/ListPosts/ListPosts";
 import { PublicityBanner } from "../../Components/PublicityBanner/PublicityBanner";
@@ -37,7 +37,7 @@ export const PostCategoriesPage = () => {
       }
     };
     fetchPosts();
-  }, [categorieId, AllPosts, location]);
+  }, [AllPosts, location]);
 
   return (
     <>
