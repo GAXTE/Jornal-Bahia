@@ -2,7 +2,7 @@ import { IChildren } from "../../types/DefaultTypes";
 import { ListOfCategories } from "./ListOfCategories/ListOfCategories";
 import { SearchButton } from "./SearchButton/SearchButton";
 import { SocialMedia } from "./SocialMedia/SocialMedia";
-import Logo from "../../assets/Logo-DOE9XU4E 1.png";
+import Logo from "../../assets/LOGO EM PNG COM FUNDO TRANSPARENTE.png";
 import { HamburgerMenu } from "./HamburgerMenu/HamburgerMenu";
 import { RedLine } from "../RedLine/RedLine";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ export const Header = ({ children }: IHeader) => {
         <div className="min-h-[83px] container flex justify-between items-center my-[19px] ">
           <SearchButton />
           <img
-            className="w-[55vw] max-w-[330px] h-auto max-h-[70px] cursor-pointer"
+            className="w-[55vw] max-w-[430px] h-auto max-h-[70px] cursor-pointer"
             src={Logo}
             alt="Logo Jornal da Bahia"
             onClick={() => navi("/")}
@@ -28,10 +28,7 @@ export const Header = ({ children }: IHeader) => {
           <HamburgerMenu />
         </div>
         <RedLine />
-        <ListOfCategories
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-        />
+        <ListOfCategories isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
         {children}
       </header>
     </>
