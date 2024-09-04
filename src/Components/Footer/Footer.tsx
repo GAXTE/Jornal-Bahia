@@ -1,5 +1,6 @@
 import { SocialMedia } from "../Header/SocialMedia/SocialMedia";
 import { RedLine } from "../RedLine/RedLine";
+import Logo from "../../assets/LOGO MARCA D'AGUA.png";
 
 const styleSocialMediaFooter: React.CSSProperties = {
   display: "flex",
@@ -14,6 +15,11 @@ export const Footer = () => {
           <p className="footer-text max-w-[232px] text-center lg:text-nowrap">
             Todos os direitos reservados Jornal da Bahia
           </p>
+          <img
+            className="w-[55vw] max-w-[100px] h-auto max-h-[60px] cursor-pointer"
+            src={Logo}
+            alt="Logo Jornal da Bahia"
+          />
           <SocialMedia style={styleSocialMediaFooter} />
         </div>
       </div>
