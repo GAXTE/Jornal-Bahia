@@ -11,7 +11,7 @@ export const PostsMain = () => {
   const navi = useNavigate();
   useEffect(() => {
     const getPosts = async () => {
-      const posts1 = await getAllPostByCategory(ListAllCategories[12].id);
+      const posts1 = await getAllPostByCategory(ListAllCategories[10].id);
       const posts2 = await getAllPostByCategory(ListAllCategories[6].id);
       const posts3 = await getAllPostByCategory(ListAllCategories[5].id);
       posts1.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
