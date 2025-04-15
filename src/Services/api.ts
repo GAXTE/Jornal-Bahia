@@ -1,5 +1,5 @@
 import axios from "axios";
 export const Api = axios.create({
-  baseURL: "https://fariasx.online",
+  baseURL: "https://api.fariasx.online",
   timeout: 10000,
 });
