@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 export const SocialMediaStick = () => {
   const location = useLocation();
   const idPage = location.pathname.split("/").pop();
-  const pageUrl = encodeURIComponent(`https://jornaldabahia.app.br/${idPage}`);
+  const pageUrl = encodeURIComponent(`https://app.jornaldabahia.ba/${idPage}`);
   const shareOnWhatsApp = () => {
     const whatsappUrl = `https://wa.me/?text=${pageUrl}`;
     window.open(whatsappUrl, "_blank");
