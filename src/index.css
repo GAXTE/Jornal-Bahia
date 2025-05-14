@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  zoom: 130%;
+@media screen and (min-width: 1024px) {
+  html {
+    zoom: 130%;
+  }
 }
 
 :root {
