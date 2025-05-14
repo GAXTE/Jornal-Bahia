@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  zoom: 130%;
+}
+
 :root {
   --color-primary: #ff0000;
   --color-black: #000000;
