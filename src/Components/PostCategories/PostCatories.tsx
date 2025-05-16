@@ -91,7 +91,7 @@ export const PostCategories = () => {
                   <img
                     onClick={() => handlePostClick(post.id)}
                     className="cursor-pointer max-w-[full] max-h-[188px] rounded-lg object-cover"
-                    src={post.photoUrls}
+                    src={post.photoUrls[0]}
                     alt={truncateText(post.title, MAX_CHARS)}
                   />
                   <h2 className="cursor-pointer tittle-2" onClick={() => handlePostClick(post.id)}>
