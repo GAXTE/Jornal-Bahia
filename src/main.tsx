@@ -7,6 +7,8 @@ import { CategoryProvider } from "./Providers/category/CategoryContext.tsx";
 import { PublicityProvider } from "./Providers/publicity/PublicityContext.tsx";
 import { PostProvider } from "./Providers/post/PostContext.tsx";
 
+//ola
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
