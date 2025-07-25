@@ -2,18 +2,8 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="
-      default-src 'self';
-      script-src 'self' https://www.googletagmanager.com https://pagead2.googlesyndication.com https://www.google.com https://www.gstatic.com;
-      img-src 'self' https://www.googletagmanager.com https://www.google.com https://www.gstatic.com data:;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      font-src 'self' https://fonts.gstatic.com;
-      connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com;
-      frame-src https://www.google.com;
-    ">
     <link rel="icon" type="image/svg+xml" href="src/assets/LogoBa.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jornal da Bahia</title>
     <meta name="test" content="my test" />
     <style>
@@ -24,23 +14,24 @@
     <script 
       async 
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3952259030784159" 
-      crossorigin="anonymous"
-      data-cookie-options='SameSite=None;Secure;Partitioned'>
+      crossorigin="anonymous">
     </script>
 
     <!-- Google Tag Manager -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YWCLKBNRRF" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-29RGGBP6WR" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YWCLKBNRRF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-YWCLKBNRRF");
+    </script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-29RGGBP6WR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-YWCLKBNRRF', {
-        cookie_flags: 'SameSite=None;Secure;Partitioned'
-      });
-      gtag('config', 'G-29RGGBP6WR', {
-        cookie_flags: 'SameSite=None;Secure;Partitioned'
-      });
+      gtag('config', 'G-29RGGBP6WR');
     </script>
   </head>
 
