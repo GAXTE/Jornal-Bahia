@@ -11,13 +11,13 @@ export const MostReadPage = () => {
     <>
       <Header />
       <main className="container">
-        {postMostState.length > 0 && <PublicityBanner />}
+        {postMostState && postMostState.length > 0 && <PublicityBanner />}
         <ListPosts posts={postMostState}>
           <p>Mais lidos:</p>
         </ListPosts>
-
+        
         {/* AdSense apenas se houver posts */}
-        {postMostState.length > 0 && (
+        {postMostState && postMostState.length > 0 && (
           <section className="my-8 flex justify-center">
             <AdSense adSlot="2902002028" />
           </section>
