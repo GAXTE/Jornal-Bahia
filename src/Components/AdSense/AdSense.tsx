@@ -9,6 +9,10 @@ interface AdSenseProps {
   className?: string;
 }
 
+// Gerenciador global de script do AdSense para evitar duplicação
+let isAdSenseScriptLoaded = false;
+let isAdSenseScriptLoading = false;
+
 export const AdSense = ({
   adClient = "ca-pub-1725545045518278",
   adSlot,
@@ -19,46 +23,110 @@ export const AdSense = ({
 }: AdSenseProps) => {
   const adRef = useRef<HTMLModElement>(null);
   const isAdPushed = useRef(false);
+  const isMounted = useRef(true);
 
   useEffect(() => {
-    // Carrega o script do AdSense dinamicamente se ainda não estiver carregado
-    if (!document.querySelector('script[src*="adsbygoogle.js"]')) {
-      const script = document.createElement("script");
-      script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`;
-      script.async = true;
-      script.crossOrigin = "anonymous";
-      document.head.appendChild(script);
-    }
+    isMounted.current = true;
 
-    // Aguarda o script carregar e então inicializa o anúncio
-    const pushAd = () => {
-      if (!isAdPushed.current && window.adsbygoogle && adRef.current) {
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-          isAdPushed.current = true;
-        } catch (error) {
-          console.error("Erro ao carregar AdSense:", error);
+    // Função para carregar o script do AdSense
+    const loadAdSenseScript = () => {
+      return new Promise<void>((resolve, reject) => {
+        // Se já está carregado, resolve imediatamente
+        if (isAdSenseScriptLoaded && window.adsbygoogle) {
+          resolve();
+          return;
         }
+
+        // Se já está carregando, aguarda
+        if (isAdSenseScriptLoading) {
+          const checkInterval = setInterval(() => {
+            if (isAdSenseScriptLoaded && window.adsbygoogle) {
+              clearInterval(checkInterval);
+              resolve();
+            }
+          }, 100);
+          return;
+        }
+
+        // Verifica se o script já existe no DOM
+        const existingScript = document.querySelector(
+          'script[src*="adsbygoogle.js"]'
+        );
+
+        if (existingScript) {
+          isAdSenseScriptLoaded = true;
+          resolve();
+          return;
+        }
+
+        // Carrega o script
+        isAdSenseScriptLoading = true;
+        const script = document.createElement("script");
+        script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`;
+        script.async = true;
+        script.crossOrigin = "anonymous";
+
+        script.onload = () => {
+          isAdSenseScriptLoaded = true;
+          isAdSenseScriptLoading = false;
+          resolve();
+        };
+
+        script.onerror = () => {
+          isAdSenseScriptLoading = false;
+          reject(new Error("Falha ao carregar script do AdSense"));
+        };
+
+        document.head.appendChild(script);
+      });
+    };
+
+    // Função para inicializar o anúncio
+    const initializeAd = async () => {
+      try {
+        // Aguarda o script carregar
+        await loadAdSenseScript();
+
+        // Aguarda um pouco para garantir que o conteúdo carregou
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        // Verifica se o componente ainda está montado
+        if (!isMounted.current || isAdPushed.current) {
+          return;
+        }
+
+        // Verifica se o elemento existe e o AdSense está disponível
+        if (adRef.current && window.adsbygoogle) {
+          try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+            isAdPushed.current = true;
+          } catch (error) {
+            console.error("Erro ao inicializar anúncio AdSense:", error);
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao carregar AdSense:", error);
       }
     };
 
-    // Aguarda um pouco para garantir que o conteúdo carregou primeiro
-    const timer = setTimeout(pushAd, 100);
+    initializeAd();
 
+    // Cleanup ao desmontar
     return () => {
-      clearTimeout(timer);
+      isMounted.current = false;
     };
-  }, [adClient]);
+  }, [adClient, adSlot]); // Dependências para evitar re-inicialização desnecessária
 
   return (
     <ins
       ref={adRef}
       className={`adsbygoogle ${className}`}
-      style={{ display: "block", ...style }}
+      style={{ display: "block", minHeight: "100px", ...style }}
       data-ad-client={adClient}
       data-ad-slot={adSlot}
       data-ad-format={adFormat}
       data-full-width-responsive={fullWidthResponsive ? "true" : "false"}
+      data-adtest={import.meta.env.MODE === "development" ? "on" : "off"}
     />
   );
 };
