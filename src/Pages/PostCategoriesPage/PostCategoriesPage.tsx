@@ -8,6 +8,7 @@ import { IPost } from "../../types/PostTypes";
 import { Footer } from "../../Components/Footer/Footer";
 import logo from "../../assets/LogoBa.png";
 import { Api } from "../../Services/api";
+import { AdSense } from "../../Components/AdSense/AdSense";
 
 export const PostCategoriesPage = () => {
   const location = useLocation();
@@ -43,13 +44,19 @@ export const PostCategoriesPage = () => {
     <>
       <Header />
       <main className="container">
-        <PublicityBanner />
+        {posts.length > 0 && <PublicityBanner />}
         {posts.length > 0 && (
           <ListPosts posts={posts}>
             <></>
           </ListPosts>
         )}{" "}
         {/* Verifica se posts não está vazio */}
+        {/* AdSense apenas se houver posts */}
+        {posts.length > 0 && (
+          <section className="my-8 flex justify-center">
+            <AdSense adSlot="2902002028" />
+          </section>
+        )}
       </main>
       <Footer />
     </>
