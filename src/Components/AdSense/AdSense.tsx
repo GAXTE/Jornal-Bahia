@@ -49,9 +49,7 @@ export const AdSense = ({
         }
 
         // Verifica se o script já existe no DOM
-        const existingScript = document.querySelector(
-          'script[src*="adsbygoogle.js"]'
-        );
+        const existingScript = document.querySelector('script[src*="adsbygoogle.js"]');
 
         if (existingScript) {
           isAdSenseScriptLoaded = true;
@@ -81,21 +79,69 @@ export const AdSense = ({
       });
     };
 
+    // Função para aguardar o elemento ter largura
+    const waitForElementWidth = (element: HTMLElement, maxAttempts = 20): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        let attempts = 0;
+
+        const checkWidth = () => {
+          if (!isMounted.current) {
+            reject(new Error("Componente desmontado"));
+            return;
+          }
+
+          const width = element.offsetWidth;
+
+          if (width > 0) {
+            resolve();
+            return;
+          }
+
+          attempts++;
+          if (attempts >= maxAttempts) {
+            reject(new Error("Timeout: elemento sem largura"));
+            return;
+          }
+
+          setTimeout(checkWidth, 100);
+        };
+
+        checkWidth();
+      });
+    };
+
     // Função para inicializar o anúncio
     const initializeAd = async () => {
       try {
         // Aguarda o script carregar
         await loadAdSenseScript();
 
-        // Aguarda um pouco para garantir que o conteúdo carregou
-        await new Promise((resolve) => setTimeout(resolve, 300));
+        // Aguarda um pouco para garantir que o conteúdo e CSS carregaram
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         // Verifica se o componente ainda está montado
         if (!isMounted.current || isAdPushed.current) {
           return;
         }
 
-        // Verifica se o elemento existe e o AdSense está disponível
+        // Verifica se o elemento existe
+        if (!adRef.current) {
+          return;
+        }
+
+        // Aguarda o elemento ter largura (máximo 2 segundos)
+        try {
+          await waitForElementWidth(adRef.current);
+        } catch (error) {
+          console.warn("AdSense: elemento ainda sem largura, tentando mesmo assim");
+        }
+
+        // Verifica novamente se ainda está montado
+        if (!isMounted.current || isAdPushed.current) {
+          return;
+        }
+
+        // Verifica se o AdSense está disponível
         if (adRef.current && window.adsbygoogle) {
           try {
             (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -121,7 +167,13 @@ export const AdSense = ({
     <ins
       ref={adRef}
       className={`adsbygoogle ${className}`}
-      style={{ display: "block", minHeight: "100px", ...style }}
+      style={{
+        display: "block",
+        minHeight: "100px",
+        minWidth: "300px",
+        width: "100%",
+        ...style,
+      }}
       data-ad-client={adClient}
       data-ad-slot={adSlot}
       data-ad-format={adFormat}
