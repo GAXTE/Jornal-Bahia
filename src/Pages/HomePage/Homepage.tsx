@@ -7,6 +7,7 @@ import { PostCategories } from "../../Components/PostCategories/PostCatories";
 import { PostsMain } from "../../Components/PostsMain/PostsMain";
 import { Publicities } from "../../Components/Publicities/publicities";
 import { PublicityBanner } from "../../Components/PublicityBanner/PublicityBanner";
+import { AdSense } from "../../Components/AdSense/AdSense";
 import logo from "../../assets/LogoBa.png";
 
 export const Homepage = () => {
@@ -35,6 +36,12 @@ export const Homepage = () => {
           <MostRead />
           <PostCategories />
         </section>
+
+        {/* AdSense após conteúdo substancial */}
+        <section className="my-8 flex justify-center">
+          <AdSense adSlot="2902002028" />
+        </section>
+
         <section className="flex flex-col-reverse gap-7 md:items-center lg:items-start lg:flex-row lg:justify-between  lg:relative">
           <LatestNews />
           <Publicities />

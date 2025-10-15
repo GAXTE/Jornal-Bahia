@@ -10,6 +10,7 @@ import { IPost } from "../../types/PostTypes";
 import animationData from "../../assets/Animation - 1718972246036.json";
 import Lottie from "react-lottie";
 import { LatestNews } from "../../Components/LatestNews/LatesteNews";
+import { AdSense } from "../../Components/AdSense/AdSense";
 
 export const PostViewPage = () => {
   const { getPostById } = usePostContext();
@@ -56,6 +57,14 @@ export const PostViewPage = () => {
                 <span>Nenhum post Encontrado</span>
               </div>
             )}
+
+            {/* AdSense após conteúdo do post - só exibe se não houver erro */}
+            {!error && post && (
+              <section className="my-8 flex justify-center">
+                <AdSense adSlot="2902002028" />
+              </section>
+            )}
+
             <LatestNews />
           </div>
           {error ? null : <SocialMediaStick />}

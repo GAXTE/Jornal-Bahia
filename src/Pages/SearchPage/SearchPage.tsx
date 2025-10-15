@@ -6,6 +6,7 @@ import { usePostContext } from "../../Providers/post/PostContext";
 import { useEffect, useState } from "react";
 import logo from "../../assets/LogoBa.png";
 import { IPost } from "../../types/PostTypes";
+import { AdSense } from "../../Components/AdSense/AdSense";
 
 export const SearchPage = () => {
   const { searchPost } = useParams();
@@ -32,11 +33,18 @@ export const SearchPage = () => {
   return (
     <>
       <Header />
-      <PublicityBanner />
+      {searchResult.length > 0 && <PublicityBanner />}
       <main className="container">
         <ListPosts posts={searchResult}>
           <p>Resultado da pesquisa: {searchPost}</p>
         </ListPosts>
+
+        {/* AdSense apenas se houver resultados */}
+        {searchResult.length > 0 && (
+          <section className="my-8 flex justify-center">
+            <AdSense adSlot="2902002028" />
+          </section>
+        )}
       </main>
     </>
   );
