@@ -170,8 +170,8 @@ export const AdSense = ({
       style={{
         display: "block",
         minHeight: "100px",
-        minWidth: "300px",
         width: "100%",
+        maxWidth: "100%",
         ...style,
       }}
       data-ad-client={adClient}

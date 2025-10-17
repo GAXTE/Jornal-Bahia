@@ -48,8 +48,8 @@ export const PostViewPage = () => {
       <Header />
       <main className="container flex flex-col items-center mb-4">
         {error ? null : <PublicityBanner />}
-        <div className="flex mt-10 gap-3 justify-between lg:w-[740px]">
-          <div className="flex flex-col gap-14">
+        <div className="flex mt-10 gap-3 justify-between w-full max-w-[330px] md:max-w-[660px] lg:max-w-[740px] lg:w-[740px]">
+          <div className="flex flex-col gap-14 w-full max-w-[290px] md:max-w-[620px]">
             {post && <ViewPost post={post} />}
             {error && (
               <div className="py-[100px] flex flex-col items-center tittle-2">
